@@ -510,3 +510,157 @@ foreach($rows as $row) {
 }
 echo 'Coupon Product Rows Done.';
 echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_currency`;
+CREATE TABLE IF NOT EXISTS `v155_currency` (
+  `currency_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(32) NOT NULL,
+  `code` varchar(3) NOT NULL,
+  `symbol_left` varchar(12) NOT NULL,
+  `symbol_right` varchar(12) NOT NULL,
+  `decimal_place` char(1) NOT NULL,
+  `value` float(15,8) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`currency_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$sql  = "INSERT INTO v155_currency (currency_id,title,code,symbol_left,symbol_right,decimal_place,value,status,date_modified)";
+$sql .= "VALUES (:currency_id,:title,:code,:symbol_left,:symbol_right,:decimal_place,:value,:status,NOW())";
+$q = $pdo->prepare($sql);
+$q->execute(array(
+	':currency_id' => 1,
+	':title' => 'US Dollar',
+	':code' => 'USD',
+	':symbol_left' => '$',
+	':symbol_right' => '',
+	':decimal_place' => '2',
+	':value' => '1.00000000',
+	':status' => 1,
+));
+echo 'Currency Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_customer`;
+CREATE TABLE IF NOT EXISTS `v155_customer` (
+  `customer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `store_id` int(11) NOT NULL DEFAULT '0',
+  `firstname` varchar(32) NOT NULL,
+  `lastname` varchar(32) NOT NULL,
+  `email` varchar(96) NOT NULL,
+  `telephone` varchar(32) NOT NULL,
+  `fax` varchar(32) NOT NULL,
+  `password` varchar(40) NOT NULL,
+  `salt` varchar(9) NOT NULL,
+  `cart` text,
+  `wishlist` text,
+  `newsletter` tinyint(1) NOT NULL DEFAULT '0',
+  `address_id` int(11) NOT NULL DEFAULT '0',
+  `customer_group_id` int(11) NOT NULL,
+  `ip` varchar(40) NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL,
+  `approved` tinyint(1) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`customer_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM customer');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_customer (customer_id,store_id,firstname,lastname,email,telephone,fax,password,salt,cart,wishlist,newsletter,address_id,customer_group_id,ip,status,approved,token,date_added)";
+	$sql .= "VALUES (:customer_id,:store_id,:firstname,:lastname,:email,:telephone,:fax,:password,:salt,:cart,:wishlist,:newsletter,:address_id,:customer_group_id,:ip,:status,:approved,:token,:date_added)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':customer_id' => $row['customer_id'],
+		':store_id' => $row['store_id'],
+		':firstname' => $row['firstname'],
+		':lastname' => $row['lastname'],
+		':email' => $row['email'],
+		':telephone' => $row['telephone'],
+		':fax' => $row['fax'],
+		':password' => $row['password'],
+		':salt' => '',
+		':cart' => $row['cart'],
+		':wishlist' => '',
+		':newsletter' => $row['newsletter'],
+		':address_id' => $row['address_id'],
+		':customer_group_id' => $row['customer_group_id'],
+		':ip' => $row['ip'],
+		':status' => $row['status'],
+		':approved' => $row['approved'],
+		':token' => '',
+		':date_added' => $row['date_added'],
+	));
+}
+
+echo 'Customer Rows Done.';
+echo '<br />';
+
+echo '<b>TODO:</b> Check Logging In Works.';
+echo '<br />';
+
+// NEW STUFF
+
+$create = "DROP TABLE IF EXISTS `v155_customer_group`;
+CREATE TABLE IF NOT EXISTS `v155_customer_group` (
+  `customer_group_id` int(11) NOT NULL AUTO_INCREMENT,
+  `approval` int(1) NOT NULL,
+  `company_id_display` int(1) NOT NULL,
+  `company_id_required` int(1) NOT NULL,
+  `tax_id_display` int(1) NOT NULL,
+  `tax_id_required` int(1) NOT NULL,
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`customer_group_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+$rows = $pdo->query('SELECT * FROM customer_group');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_customer_group (customer_group_id,approval,company_id_display,company_id_required,tax_id_display,tax_id_required,sort_order)";
+	$sql .= "VALUES (:customer_group_id,:approval,:company_id_display,:company_id_required,:tax_id_display,:tax_id_required,:sort_order)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':customer_group_id' => $row['customer_group_id'],
+		':approval' => 0,
+		':company_id_display' => 0,
+		':company_id_required' => 0,
+		':tax_id_display' => 0,
+		':tax_id_required' => 0,
+		':sort_order' => 0,
+	));
+}
+
+echo '<b>TODO:</b> Customer Group Name?';
+echo '<br />';
+
+/*
+--
+-- Dumping data for table `customer_group`
+--
+
+INSERT INTO `customer_group` (`customer_group_id`, `approval`, `company_id_display`, `company_id_required`, `tax_id_display`, `tax_id_required`, `sort_order`) VALUES
+(1, 0, 1, 0, 0, 1, 1);
+*/
+
+// OLD STUFF
+
+/*
+CREATE TABLE IF NOT EXISTS `customer_group` (
+  `customer_group_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`customer_group_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `customer_group`
+--
+
+INSERT INTO `customer_group` (`customer_group_id`, `name`) VALUES
+(8, 'Default'),
+(6, 'Wholesale'),
+(9, 'TaxExempt'),
+(10, 'Ultimate Power');
+ * 
+ */
+
