@@ -833,7 +833,7 @@ $pdo->query($create);
 $rows = $pdo->query('SELECT * FROM length_class_description');
 foreach($rows as $row) {
 	$sql  = "INSERT INTO v155_length_class_description (length_class_id,language_id,title,unit)";
-	$sql .= "VALUES (:length_class_id,:language_id,:title,unit)";
+	$sql .= "VALUES (:length_class_id,:language_id,:title,:unit)";
 	$q = $pdo->prepare($sql);
 	$q->execute(array(
 		':length_class_id' => $row['length_class_id'],
