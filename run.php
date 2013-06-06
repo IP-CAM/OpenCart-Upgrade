@@ -963,7 +963,7 @@ $pdo->query($create);
 
 $rows = $pdo->query('SELECT * FROM `order`');
 foreach($rows as $row) {
-	$sql  = "INSERT INTO v155_manufacturer_to_store (order_id,invoice_no,invoice_prefix,store_id,store_name,store_url,customer_id,customer_group_id,firstname,lastname,email,telephone,fax,payment_firstname,payment_lastname,payment_company,payment_company_id,payment_tax_id,payment_address_1,payment_address_2,payment_city,payment_postcode,payment_country,payment_country_id,payment_zone,payment_zone_id,payment_address_format,payment_method,payment_code,shipping_firstname,shipping_lastname,shipping_company,shipping_address_1,shipping_address_2,shipping_city,shipping_postcode,shipping_country,shipping_country_id,shipping_zone,shipping_zone_id,shipping_address_format,shipping_method,shipping_code,comment,total,order_status_id,affiliate_id,commission,language_id,currency_id,currency_code,currency_value,ip,forwarded_ip,user_agent,accept_language,date_added,date_modified)";
+	$sql  = "INSERT INTO v155_order (order_id,invoice_no,invoice_prefix,store_id,store_name,store_url,customer_id,customer_group_id,firstname,lastname,email,telephone,fax,payment_firstname,payment_lastname,payment_company,payment_company_id,payment_tax_id,payment_address_1,payment_address_2,payment_city,payment_postcode,payment_country,payment_country_id,payment_zone,payment_zone_id,payment_address_format,payment_method,payment_code,shipping_firstname,shipping_lastname,shipping_company,shipping_address_1,shipping_address_2,shipping_city,shipping_postcode,shipping_country,shipping_country_id,shipping_zone,shipping_zone_id,shipping_address_format,shipping_method,shipping_code,comment,total,order_status_id,affiliate_id,commission,language_id,currency_id,currency_code,currency_value,ip,forwarded_ip,user_agent,accept_language,date_added,date_modified)";
 	$sql .= "VALUES (:order_id,:invoice_no,:invoice_prefix,:store_id,:store_name,:store_url,:customer_id,:customer_group_id,:firstname,:lastname,:email,:telephone,:fax,:payment_firstname,:payment_lastname,:payment_company,:payment_company_id,:payment_tax_id,:payment_address_1,:payment_address_2,:payment_city,:payment_postcode,:payment_country,:payment_country_id,:payment_zone,:payment_zone_id,:payment_address_format,:payment_method,:payment_code,:shipping_firstname,:shipping_lastname,:shipping_company,:shipping_address_1,:shipping_address_2,:shipping_city,:shipping_postcode,:shipping_country,:shipping_country_id,:shipping_zone,:shipping_zone_id,:shipping_address_format,:shipping_method,:shipping_code,:comment,:total,:order_status_id,:affiliate_id,:commission,:language_id,:currency_id,:currency_code,:currency_value,:ip,:forwarded_ip,:user_agent,:accept_language,:date_added,:date_modified)";
 	$q = $pdo->prepare($sql);
 	$q->execute(array(
@@ -1032,6 +1032,38 @@ echo 'Order Rows Done.';
 echo '<br />';
 
 echo '<b>TODO:</b> Double Check Currency Code and Currency Value';
+echo '<br />';
 echo '<b>TODO:</b> Fill in Customer Group ID.';
+echo '<br />';
 echo '<b>TODO:</b> Put Coupon ID and Invoice Date somewhere else';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_order_history`;
+CREATE TABLE IF NOT EXISTS `v155_order_history` (
+	`order_history_id` int(11) NOT NULL AUTO_INCREMENT,
+	`order_id` int(11) NOT NULL,
+	`order_status_id` int(5) NOT NULL,
+	`notify` tinyint(1) NOT NULL DEFAULT '0',
+	`comment` text NOT NULL,
+	`date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+	PRIMARY KEY (`order_history_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `order_history`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_order_history (order_history_id,order_id,order_status_id,notify,comment,date_added)";
+	$sql .= "VALUES (:order_history_id,:order_id,:order_status_id,:notify,:comment,:date_added)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':order_history_id' => $row['order_history_id'],
+		':order_id' => $row['order_id'],
+		':order_status_id' => $row['order_status_id'],
+		':notify' => $row['notify'],
+		':comment' => $row['comment'],
+		':date_added' => $row['date_added'],
+	));
+}
+
+echo 'Order History Done.';
 echo '<br />';
