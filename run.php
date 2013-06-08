@@ -1065,5 +1065,390 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Order History Done.';
+echo 'Order History Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_order_option`;
+CREATE TABLE IF NOT EXISTS `v155_order_option` (
+  `order_option_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `order_product_id` int(11) NOT NULL,
+  `product_option_id` int(11) NOT NULL,
+  `product_option_value_id` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(255) NOT NULL,
+  `value` text NOT NULL,
+  `type` varchar(32) NOT NULL,
+  PRIMARY KEY (`order_option_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `order_option`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_order_option (order_option_id,order_id,order_product_id,product_option_id,product_option_value_id,name,value,type)";
+	$sql .= "VALUES (:order_option_id,:order_id,:order_product_id,:product_option_id,:product_option_value_id,:name,:value,:type)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':order_option_id' => $row['order_option_id'],
+		':order_id' => $row['order_id'],
+		':order_product_id' => $row['order_product_id'],
+		':product_option_id' => '',
+		':product_option_value_id' => $row['product_option_value_id'],
+		':name' => $row['name'],
+		':value' => $row['value'],
+		':type' => $row['price'],
+	));
+}
+
+echo 'Order Option Rows Done.';
+echo '<br />';
+
+echo '<b>TODO:</b> Fill in Product Option ID.';
+echo '<br />';
+echo '<b>TODO:</b> Put Prefix somewhere else';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_order_product`;
+CREATE TABLE IF NOT EXISTS `v155_order_product` (
+  `order_product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `model` varchar(64) NOT NULL,
+  `quantity` int(4) NOT NULL,
+  `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
+  `total` decimal(15,4) NOT NULL DEFAULT '0.0000',
+  `tax` decimal(15,4) NOT NULL DEFAULT '0.0000',
+  `reward` int(8) NOT NULL,
+  PRIMARY KEY (`order_product_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `order_product`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_order_product (order_product_id,order_id,product_id,name,model,quantity,price,total,tax,reward)";
+	$sql .= "VALUES (:order_product_id,:order_id,:product_id,:name,:model,:quantity,:price,:total,:tax,:reward)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':order_product_id' => $row['order_product_id'],
+		':order_id' => $row['order_id'],
+		':product_id' => $row['product_id'],
+		':name' => $row['name'],
+		':model' => $row['model'],
+		':quantity' => $row['quantity'],
+		':price' => $row['price'],
+		':total' => $row['total'],
+		':tax' => $row['tax'],
+		':reward' => $row['subtract'],
+	));
+}
+
+echo 'Order Product Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_order_status`;
+CREATE TABLE IF NOT EXISTS `v155_order_status` (
+	`order_status_id` int(11) NOT NULL AUTO_INCREMENT,
+	`language_id` int(11) NOT NULL,
+	`name` varchar(32) NOT NULL,
+	PRIMARY KEY (`order_status_id`,`language_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$insert = "INSERT INTO `v155_order_status` (`order_status_id`, `language_id`, `name`) VALUES
+	(1, 1, 'Pending'),
+	(2, 1, 'Processing'),
+	(3, 1, 'Shipped'),
+	(5, 1, 'Complete'),
+	(7, 1, 'Canceled'),
+	(8, 1, 'Denied'),
+	(9, 1, 'Canceled Reversal'),
+	(10, 1, 'Failed'),
+	(11, 1, 'Refunded'),
+	(12, 1, 'Reversed'),
+	(13, 1, 'Chargeback'),
+	(14, 1, 'Expired'),
+	(15, 1, 'Processed'),
+	(16, 1, 'Voided');";
+$pdo->query($insert);
+
+echo 'Order Status Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_order_total`;
+CREATE TABLE IF NOT EXISTS `v155_order_total` (
+	`order_total_id` int(10) NOT NULL AUTO_INCREMENT,
+	`order_id` int(11) NOT NULL,
+	`code` varchar(32) NOT NULL,
+	`title` varchar(255) NOT NULL,
+	`text` varchar(255) NOT NULL,
+	`value` decimal(15,4) NOT NULL DEFAULT '0.0000',
+	`sort_order` int(3) NOT NULL,
+	PRIMARY KEY (`order_total_id`),
+	KEY `idx_orders_total_orders_id` (`order_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `order_total`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_order_total (order_total_id,order_id,code,title,text,value,sort_order)";
+	$sql .= "VALUES (:order_total_id,:order_id,:code,:title,:text,:value,:sort_order)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':order_total_id' => $row['order_total_id'],
+		':order_id' => $row['order_id'],
+		':code' => '',
+		':title' => $row['title'],
+		':text' => $row['text'],
+		':value' => $row['value'],
+		':sort_order' => $row['sort_order'],
+	));
+}
+
+echo 'Order Total Rows Done.';
+echo '<br />';
+
+echo '<b>TODO:</b> Fill in Code.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_product`;
+CREATE TABLE IF NOT EXISTS `v155_product` (
+	`product_id` int(11) NOT NULL AUTO_INCREMENT,
+	`model` varchar(64) NOT NULL,
+	`sku` varchar(64) NOT NULL,
+	`upc` varchar(12) NOT NULL,
+	`ean` varchar(14) NOT NULL,
+	`jan` varchar(13) NOT NULL,
+	`isbn` varchar(13) NOT NULL,
+	`mpn` varchar(64) NOT NULL,
+	`location` varchar(128) NOT NULL,
+	`quantity` int(4) NOT NULL DEFAULT '0',
+	`stock_status_id` int(11) NOT NULL,
+	`image` varchar(255) DEFAULT NULL,
+	`manufacturer_id` int(11) NOT NULL,
+	`shipping` tinyint(1) NOT NULL DEFAULT '1',
+	`price` decimal(15,4) NOT NULL DEFAULT '0.0000',
+	`points` int(8) NOT NULL DEFAULT '0',
+	`tax_class_id` int(11) NOT NULL,
+	`date_available` date NOT NULL,
+	`weight` decimal(15,8) NOT NULL DEFAULT '0.00000000',
+	`weight_class_id` int(11) NOT NULL DEFAULT '0',
+	`length` decimal(15,8) NOT NULL DEFAULT '0.00000000',
+	`width` decimal(15,8) NOT NULL DEFAULT '0.00000000',
+	`height` decimal(15,8) NOT NULL DEFAULT '0.00000000',
+	`length_class_id` int(11) NOT NULL DEFAULT '0',
+	`subtract` tinyint(1) NOT NULL DEFAULT '1',
+	`minimum` int(11) NOT NULL DEFAULT '1',
+	`sort_order` int(11) NOT NULL DEFAULT '0',
+	`status` tinyint(1) NOT NULL DEFAULT '0',
+	`date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`viewed` int(5) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`product_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `product`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_product (product_id,model,sku,upc,ean,jan,isbn,mpn,location,quantity,stock_status_id,image,manufacturer_id,shipping,price,points,tax_class_id,date_available,weight,weight_class_id,length,width,height,length_class_id,subtract,minimum,sort_order,status,date_added,date_modified,viewed)";
+	$sql .= "VALUES (:product_id,:model,:sku,:upc,:ean,:jan,:isbn,:mpn,:location,:quantity,:stock_status_id,:image,:manufacturer_id,:shipping,:price,:points,:tax_class_id,:date_available,:weight,:weight_class_id,:length,:width,:height,:length_class_id,:subtract,:minimum,:sort_order,:status,:date_added,:date_modified,:viewed)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':product_id' => $row['product_id'],
+		':model' => $row['model'],
+		':sku' => $row['sku'],
+		':upc' => '',
+		':ean' => '',
+		':jan' => '',
+		':isbn' => '',
+		':mpn' => '',
+		':location' => $row['location'],
+		':quantity' => $row['quantity'],
+		':stock_status_id' => $row['stock_status_id'],
+		':image' => $row['image'],
+		':manufacturer_id' => $row['manufacturer_id'],
+		':shipping' => $row['shipping'],
+		':price' => $row['price'],
+		':points' => '',
+		':tax_class_id' => $row['tax_class_id'],
+		':date_available' => $row['date_available'],
+		':weight' => $row['weight'],
+		':weight_class_id' => $row['weight_class_id'],
+		':length' => $row['length'],
+		':width' => $row['width'],
+		':height' => $row['height'],
+		':length_class_id' => $row['length_class_id'],
+		':subtract' => $row['subtract'],
+		':minimum' => $row['minimum'],
+		':sort_order' => $row['sort_order'],
+		':status' => $row['status'],
+		':date_added' => $row['date_added'],
+		':date_modified' => $row['date_modified'],
+		':viewed' => $row['viewed'],
+	));
+}
+		
+echo 'Product Rows Done.';
+echo '<br />';
+
+echo '<b>TODO:</b> Fill in UPC, EAN, JAN, ISBN, MPN, Points';
+echo '<br />';
+echo '<b>TODO:</b> Put Measurement Class ID, Cost, Vendor ID, Size, Color, Production Condition somewhere else';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_product_description`;
+CREATE TABLE IF NOT EXISTS `v155_product_description` (
+  `product_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `meta_description` varchar(255) NOT NULL,
+  `meta_keyword` varchar(255) NOT NULL,
+  `tag` text NOT NULL,
+  PRIMARY KEY (`product_id`,`language_id`),
+  KEY `name` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `product_description`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_product_description (product_id,language_id,name,description,meta_description,meta_keyword,tag)";
+	$sql .= "VALUES (:product_id,:language_id,:name,:description,:meta_description,:meta_keyword,:tag)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':product_id' => $row['product_id'],
+		':language_id' => $row['language_id'],
+		':name' => $row['name'],
+		':description' => $row['description'],
+		':meta_description' => $row['meta_description'],
+		':meta_keyword' => $row['meta_keywords'],
+		':tag' => '',
+	));
+}
+
+echo 'Product Description Rows Done.';
+echo '<br />';
+
+echo '<b>TODO:</b> Fill in Tag';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_product_discount`;
+CREATE TABLE IF NOT EXISTS `v155_product_discount` (
+  `product_discount_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `customer_group_id` int(11) NOT NULL,
+  `quantity` int(4) NOT NULL DEFAULT '0',
+  `priority` int(5) NOT NULL DEFAULT '1',
+  `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
+  `date_start` date NOT NULL DEFAULT '0000-00-00',
+  `date_end` date NOT NULL DEFAULT '0000-00-00',
+  PRIMARY KEY (`product_discount_id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `product_discount`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_product_discount (product_discount_id,product_id,customer_group_id,quantity,priority,price,date_start,date_end)";
+	$sql .= "VALUES (:product_discount_id,:product_id,:customer_group_id,:quantity,:priority,:price,:date_start,:date_end)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':product_discount_id' => $row['product_discount_id'],
+		':product_id' => $row['product_id'],
+		':customer_group_id' => $row['customer_group_id'],
+		':quantity' => $row['quantity'],
+		':priority' => $row['priority'],
+		':price' => $row['price'],
+		':date_start' => $row['date_start'],
+		':date_end' => $row['date_end'],
+	));
+}
+
+echo 'Product Discount Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_product_image`;
+CREATE TABLE IF NOT EXISTS `v155_product_image` (
+  `product_image_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `sort_order` int(3) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`product_image_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `product_image`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_product_image (product_image_id,product_id,image,sort_order)";
+	$sql .= "VALUES (:product_image_id,:product_id,:image,:sort_order)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':product_image_id' => $row['product_image_id'],
+		':product_id' => $row['product_id'],
+		':image' => $row['image'],
+		':sort_order' => '',
+	));
+}
+
+echo 'Product Image Rows Done.';
+echo '<br />';
+
+echo '<b>TODO:</b> Fill in Sort Order';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_product_notes`;
+CREATE TABLE IF NOT EXISTS `v155_product_notes` (
+  `product_id` int(11) NOT NULL,
+  `note` text NOT NULL,
+  PRIMARY KEY (`product_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `product_notes`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_product_notes (product_id,note)";
+	$sql .= "VALUES (:product_id,:note)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':product_id' => $row['product_id'],
+		':note' => $row['note'],
+	));
+}
+
+echo 'Product Notes Rows Done.';
+echo '<br />';
+
+echo '<b>TODO:</b> This was a customization. Maybe something else?';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_product_option`;
+CREATE TABLE IF NOT EXISTS `v155_product_option` (
+  `product_option_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `option_id` int(11) NOT NULL,
+  `option_value` text NOT NULL,
+  `required` tinyint(1) NOT NULL,
+  PRIMARY KEY (`product_option_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `product_option`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_product_option (product_option_id,product_id,option_id,option_value,required)";
+	$sql .= "VALUES (:product_option_id,:product_id,:option_id,:option_value,:required)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':product_option_id' => $row['product_option_id'],
+		':product_id' => $row['product_id'],
+		':option_id' => '',
+		':option_value' => '',
+		':required' => '',
+	));
+}
+
+echo 'Product Option Rows Done.';
+echo '<br />';
+
+echo '<b>TODO:</b> Fill in Option ID, Option Value, Required';
+echo '<br />';
+echo '<b>TODO:</b> Put Sort Order somewhere else';
 echo '<br />';
