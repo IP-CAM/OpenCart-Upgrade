@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `v155_affiliate` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
-echo 'Affiliate Rows Done.';
+echo 'Affiliate Table Created.';
 echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_affiliate_transaction`;
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `v155_affiliate_transaction` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
-echo 'Affiliate Transaction Rows Done.';
+echo 'Affiliate Transaction Table Created.';
 echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_attribute`;
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `v155_attribute` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
-echo 'Attribute Rows Done.';
+echo 'Attribute Table Created.';
 echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_attribute_description`;
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `v155_attribute_description` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
-echo 'Attribute Description Rows Done.';
+echo 'Attribute Description Table Created.';
 echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_attribute_group`;
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `v155_attribute_group` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
-echo 'Attribute Group Rows Done.';
+echo 'Attribute Group Table Created.';
 echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_attribute_group_description`;
@@ -102,7 +102,45 @@ CREATE TABLE IF NOT EXISTS `v155_attribute_group_description` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
-echo 'Attribute Group Description Rows Done.';
+echo 'Attribute Group Description Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_banner`;
+CREATE TABLE IF NOT EXISTS `v155_banner` (
+	`banner_id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(64) NOT NULL,
+	`status` tinyint(1) NOT NULL,
+	PRIMARY KEY (`banner_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Banner Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_banner_image`;
+CREATE TABLE IF NOT EXISTS `v155_banner_image` (
+	`banner_image_id` int(11) NOT NULL AUTO_INCREMENT,
+	`banner_id` int(11) NOT NULL,
+	`link` varchar(255) NOT NULL,
+	`image` varchar(255) NOT NULL,
+	PRIMARY KEY (`banner_image_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Banner Image Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_banner_image_description`;
+CREATE TABLE IF NOT EXISTS `v155_banner_image_description` (
+  `banner_image_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `banner_id` int(11) NOT NULL,
+  `title` varchar(64) NOT NULL,
+  PRIMARY KEY (`banner_image_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Banner Image Description Table Created.';
 echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_coupon_category`;
@@ -113,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `v155_coupon_category` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
-echo 'Coupon Category Rows Done.';
+echo 'Coupon Category Table Created.';
 echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_coupon_history`;
@@ -128,5 +166,5 @@ CREATE TABLE IF NOT EXISTS `v155_coupon_history` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
-echo 'Coupon History Rows Done.';
+echo 'Coupon History Table Created.';
 echo '<br />';
