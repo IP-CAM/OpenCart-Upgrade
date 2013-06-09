@@ -1836,7 +1836,7 @@ $pdo->query($create);
 
 $rows = $pdo->query('SELECT * FROM `user`');
 foreach($rows as $row) {
-	$sql  = "INSERT INTO v155_url_alias (user_id,user_group_id,username,password,salt,firstname,lastname,email,code,ip,status,date_added)";
+	$sql  = "INSERT INTO v155_user (user_id,user_group_id,username,password,salt,firstname,lastname,email,code,ip,status,date_added)";
 	$sql .= "VALUES (:user_id,:user_group_id,:username,:password,:salt,:firstname,:lastname,:email,:code,:ip,:status,:date_added)";
 	$q = $pdo->prepare($sql);
 	$q->execute(array(
@@ -1938,7 +1938,7 @@ CREATE TABLE IF NOT EXISTS `v155_weight_class_description` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
-$insert = "INSERT INTO `weight_class_description` (`weight_class_id`, `language_id`, `title`, `unit`) VALUES
+$insert = "INSERT INTO `v155_weight_class_description` (`weight_class_id`, `language_id`, `title`, `unit`) VALUES
 	(1, 1, 'Kilogram', 'kg'),
 	(2, 1, 'Gram', 'g'),
 	(5, 1, 'Pound ', 'lb'),
