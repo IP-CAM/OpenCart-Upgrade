@@ -7,8 +7,10 @@ $pdo = new PDO('mysql:host='.DB_HOSTNAME.';dbname='.DB_DATABASE, DB_USERNAME, DB
   PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 ));
 
-require_once './db/a-c.php';
+require_once './db/country.php';
 require_once './db/zone.php';
+
+require_once './db/a-c.php';
 require_once './db/emptyTables.php';
 
 $create = "DROP TABLE IF EXISTS `v155_extension`;

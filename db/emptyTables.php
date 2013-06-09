@@ -154,6 +154,18 @@ $pdo->query($create);
 echo 'Category Filter Table Created.';
 echo '<br />';
 
+$create = "DROP TABLE IF EXISTS `v155_category_to_layout`;
+CREATE TABLE IF NOT EXISTS `v155_category_to_layout` (
+  `category_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  `layout_id` int(11) NOT NULL,
+  PRIMARY KEY (`category_id`,`store_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Category To Layout Table Created.';
+echo '<br />';
+
 $create = "DROP TABLE IF EXISTS `v155_coupon_category`;
 CREATE TABLE IF NOT EXISTS `v155_coupon_category` (
 	`coupon_id` int(11) NOT NULL,
