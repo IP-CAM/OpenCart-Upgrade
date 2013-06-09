@@ -143,6 +143,17 @@ $pdo->query($create);
 echo 'Banner Image Description Table Created.';
 echo '<br />';
 
+$create = "DROP TABLE IF EXISTS `v155_category_filter`;
+CREATE TABLE IF NOT EXISTS `v155_category_filter` (
+  `category_id` int(11) NOT NULL,
+  `filter_id` int(11) NOT NULL,
+  PRIMARY KEY (`category_id`,`filter_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Category Filter Table Created.';
+echo '<br />';
+
 $create = "DROP TABLE IF EXISTS `v155_coupon_category`;
 CREATE TABLE IF NOT EXISTS `v155_coupon_category` (
 	`coupon_id` int(11) NOT NULL,

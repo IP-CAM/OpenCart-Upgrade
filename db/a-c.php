@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `v155_category` (
 $pdo->query($create);
 
 $rows = $pdo->query('SELECT * FROM category');
-foreach($rows as $row) {	
+foreach($rows as $row) {
     $sql  = "INSERT INTO v155_category (category_id,image,parent_id,top,`column`,sort_order,status,date_added,date_modified)";
 	$sql .= "VALUES (:category_id,:image,:parent_id,:top,:column,:sort_order,:status,:date_added,:date_modified)";
 	$q = $pdo->prepare($sql);
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `v155_category_description` (
 $pdo->query($create);
 
 $rows = $pdo->query('SELECT * FROM category_description');
-foreach($rows as $row) {	
+foreach($rows as $row) {
     $sql  = "INSERT INTO v155_category_description (category_id,language_id,name,description,meta_description,meta_keyword)";
 	$sql .= "VALUES (:category_id,:language_id,:name,:description,:meta_description,:meta_keyword)";
 	$q = $pdo->prepare($sql);
@@ -107,6 +107,45 @@ foreach($rows as $row) {
 echo 'Category Description Rows Done.';
 echo '<br />';
 
+$create = "DROP TABLE IF EXISTS `v155_category_path`;
+CREATE TABLE IF NOT EXISTS `v155_category_path` (
+  `category_id` int(11) NOT NULL,
+  `path_id` int(11) NOT NULL,
+  `level` int(11) NOT NULL,
+  PRIMARY KEY (`category_id`,`path_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+function insertCategoryPath($parent, $paths) {	
+	global $pdo;
+	$sql = "SELECT * FROM category WHERE parent_id = :parent_id";
+	$select = $pdo->prepare($sql);
+	$select->execute(array(':parent_id' => $parent));
+	while ($row = $select->fetch()){
+		$sql  = "INSERT INTO v155_category_path (category_id,path_id,level)";
+		$sql .= "VALUES (:category_id,:path_id,:level)";
+		$q = $pdo->prepare($sql);
+		foreach ($paths as $index => $path) {
+			$q->execute(array(
+				':category_id' => $row['category_id'],
+				':path_id' => $path,
+				':level' => $index,
+			));
+		}
+		$q->execute(array(
+			':category_id' => $row['category_id'],
+			':path_id' => $row['category_id'],
+			':level' => count($paths),
+		));
+		insertCategoryPath($row['category_id'], $paths + array($row['category_id']));
+	}
+}
+
+insertCategoryPath(0, array());
+
+echo 'Category Path Rows Done.';
+echo '<br />';
+
 $create = "DROP TABLE IF EXISTS `v155_category_to_store`;
 CREATE TABLE IF NOT EXISTS `v155_category_to_store` (
 	`category_id` int(11) NOT NULL,
@@ -116,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `v155_category_to_store` (
 $pdo->query($create);
 
 $rows = $pdo->query('SELECT * FROM category_to_store');
-foreach($rows as $row) {	
+foreach($rows as $row) {
     $sql  = "INSERT INTO v155_category_to_store (category_id,store_id)";
 	$sql .= "VALUES (:category_id,:store_id)";
 	$q = $pdo->prepare($sql);
