@@ -191,3 +191,94 @@ $pdo->query($create);
 
 echo 'Coupon History Table Created.';
 echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_custom_field`;
+CREATE TABLE IF NOT EXISTS `v155_custom_field` (
+	`custom_field_id` int(11) NOT NULL AUTO_INCREMENT,
+	`type` varchar(32) NOT NULL,
+	`value` text NOT NULL,
+	`required` tinyint(1) NOT NULL,
+	`location` varchar(32) NOT NULL,
+	`position` int(3) NOT NULL,
+	`sort_order` int(3) NOT NULL,
+	PRIMARY KEY (`custom_field_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Custom Field Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_custom_field_description`;
+CREATE TABLE IF NOT EXISTS `v155_custom_field_description` (
+	`custom_field_id` int(11) NOT NULL,
+	`language_id` int(11) NOT NULL,
+	`name` varchar(128) NOT NULL,
+	PRIMARY KEY (`custom_field_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Custom Field Description Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_custom_field_to_customer_group`;
+CREATE TABLE IF NOT EXISTS `v155_custom_field_to_customer_group` (
+	`custom_field_id` int(11) NOT NULL,
+	`customer_group_id` int(11) NOT NULL,
+	PRIMARY KEY (`custom_field_id`,`customer_group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Custom Field To Customer Group Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_custom_field_value`;
+CREATE TABLE IF NOT EXISTS `v155_custom_field_value` (
+	`custom_field_value_id` int(11) NOT NULL AUTO_INCREMENT,
+	`custom_field_id` int(11) NOT NULL,
+	`sort_order` int(3) NOT NULL,
+	PRIMARY KEY (`custom_field_value_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Custom Field Value Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_custom_field_value_description`;
+CREATE TABLE IF NOT EXISTS `v155_custom_field_value_description` (
+	`custom_field_value_id` int(11) NOT NULL,
+	`language_id` int(11) NOT NULL,
+	`custom_field_id` int(11) NOT NULL,
+	`name` varchar(128) NOT NULL,
+	PRIMARY KEY (`custom_field_value_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Custom Field Value Description Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_customer_ban_ip`;
+CREATE TABLE IF NOT EXISTS `v155_customer_ban_ip` (
+	`customer_ban_ip_id` int(11) NOT NULL AUTO_INCREMENT,
+	`ip` varchar(40) NOT NULL,
+	PRIMARY KEY (`customer_ban_ip_id`),
+	KEY `ip` (`ip`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Customer Ban IP Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_customer_field`;
+CREATE TABLE IF NOT EXISTS `v155_customer_field` (
+	`customer_id` int(11) NOT NULL,
+	`custom_field_id` int(11) NOT NULL,
+	`custom_field_value_id` int(11) NOT NULL,
+	`name` int(128) NOT NULL,
+	`value` text NOT NULL,
+	`sort_order` int(3) NOT NULL,
+	PRIMARY KEY (`customer_id`,`custom_field_id`,`custom_field_value_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Customer Field Table Created.';
+echo '<br />';

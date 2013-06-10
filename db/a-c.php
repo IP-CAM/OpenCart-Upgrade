@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `v155_category_path` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
-function insertCategoryPath($parent, $paths) {	
+function insertCategoryPath($parent, $paths) {
 	global $pdo;
 	$sql = "SELECT * FROM category WHERE parent_id = :parent_id";
 	$select = $pdo->prepare($sql);
