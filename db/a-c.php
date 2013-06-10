@@ -278,9 +278,6 @@ $q->execute(array(
 echo 'Currency Rows Done.';
 echo '<br />';
 
-echo 'TODO Make sure this is the only currency used.';
-echo '<br />';
-
 $create = "DROP TABLE IF EXISTS `v155_customer`;
 CREATE TABLE IF NOT EXISTS `v155_customer` (
 	`customer_id` int(11) NOT NULL AUTO_INCREMENT,
