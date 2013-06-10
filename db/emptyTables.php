@@ -282,3 +282,74 @@ $pdo->query($create);
 
 echo 'Customer Field Table Created.';
 echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_customer_history`;
+CREATE TABLE IF NOT EXISTS `v155_customer_history` (
+	`customer_history_id` int(11) NOT NULL AUTO_INCREMENT,
+	`customer_id` int(11) NOT NULL,
+	`comment` text NOT NULL,
+	`date_added` datetime NOT NULL,
+	PRIMARY KEY (`customer_history_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Customer History Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_customer_ip`;
+	CREATE TABLE IF NOT EXISTS `v155_customer_ip` (
+	`customer_ip_id` int(11) NOT NULL AUTO_INCREMENT,
+	`customer_id` int(11) NOT NULL,
+	`ip` varchar(40) NOT NULL,
+	`date_added` datetime NOT NULL,
+	PRIMARY KEY (`customer_ip_id`),
+	KEY `ip` (`ip`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Customer IP Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_customer_online`;
+	CREATE TABLE IF NOT EXISTS `v155_customer_online` (
+	`ip` varchar(40) NOT NULL,
+	`customer_id` int(11) NOT NULL,
+	`url` text NOT NULL,
+	`referer` text NOT NULL,
+	`date_added` datetime NOT NULL,
+	PRIMARY KEY (`ip`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Customer Online Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_customer_reward`;
+	CREATE TABLE IF NOT EXISTS `v155_customer_reward` (
+	`customer_reward_id` int(11) NOT NULL AUTO_INCREMENT,
+	`customer_id` int(11) NOT NULL DEFAULT '0',
+	`order_id` int(11) NOT NULL DEFAULT '0',
+	`description` text NOT NULL,
+	`points` int(8) NOT NULL DEFAULT '0',
+	`date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+	PRIMARY KEY (`customer_reward_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Customer Reward Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_customer_transaction`;
+	CREATE TABLE IF NOT EXISTS `v155_customer_transaction` (
+	`customer_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+	`customer_id` int(11) NOT NULL,
+	`order_id` int(11) NOT NULL,
+	`description` text NOT NULL,
+	`amount` decimal(15,4) NOT NULL,
+	`date_added` datetime NOT NULL,
+	PRIMARY KEY (`customer_transaction_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Customer Transaction Table Created.';
+echo '<br />';

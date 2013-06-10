@@ -352,8 +352,6 @@ $pdo->query($create);
 
 $rows = $pdo->query('SELECT * FROM customer_group');
 foreach($rows as $row) {
-	// Nowhere Man
-	// $row['name']
 	$sql  = "INSERT INTO v155_customer_group (customer_group_id,approval,company_id_display,company_id_required,tax_id_display,tax_id_required,sort_order)";
 	$sql .= "VALUES (:customer_group_id,:approval,:company_id_display,:company_id_required,:tax_id_display,:tax_id_required,:sort_order)";
 	$q = $pdo->prepare($sql);
@@ -371,5 +369,28 @@ foreach($rows as $row) {
 echo 'Customer Group Rows Done.';
 echo '<br />';
 
-echo '<b>TODO:</b> Customer Group Name? Probably Becomes Company Name.';
+$create = "DROP TABLE IF EXISTS `v155_customer_group_description`;
+CREATE TABLE IF NOT EXISTS `v155_customer_group_description` (
+	`customer_group_id` int(11) NOT NULL,
+	`language_id` int(11) NOT NULL,
+	`name` varchar(32) NOT NULL,
+	`description` text NOT NULL,
+	PRIMARY KEY (`customer_group_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM customer_group');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_customer_group_description (customer_group_id,language_id,name,description)";
+	$sql .= "VALUES (:customer_group_id,:language_id,:name,:description)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':customer_group_id' => $row['customer_group_id'],
+		':language_id' => 1,
+		':name' => $row['name'],
+		':description' => $row['name'],
+	));
+}
+
+echo 'Customer Group Discription Rows Done.';
 echo '<br />';
