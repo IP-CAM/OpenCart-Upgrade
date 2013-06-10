@@ -337,9 +337,6 @@ foreach($rows as $row) {
 echo 'Customer Rows Done.';
 echo '<br />';
 
-echo '<b>TODO:</b> Check Logging In Works.';
-echo '<br />';
-
 $create = "DROP TABLE IF EXISTS `v155_customer_group`;
 CREATE TABLE IF NOT EXISTS `v155_customer_group` (
 	`customer_group_id` int(11) NOT NULL AUTO_INCREMENT,
