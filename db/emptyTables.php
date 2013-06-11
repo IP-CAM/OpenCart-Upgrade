@@ -379,3 +379,63 @@ $pdo->query($create);
 
 echo 'Download Description Table Created.';
 echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_filter`;
+CREATE TABLE IF NOT EXISTS `v155_filter` (
+	`filter_id` int(11) NOT NULL AUTO_INCREMENT,
+	`filter_group_id` int(11) NOT NULL,
+	`sort_order` int(3) NOT NULL,
+	PRIMARY KEY (`filter_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Filter Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_filter_description`;
+CREATE TABLE IF NOT EXISTS `v155_filter_description` (
+	`filter_id` int(11) NOT NULL,
+	`language_id` int(11) NOT NULL,
+	`filter_group_id` int(11) NOT NULL,
+	`name` varchar(64) NOT NULL,
+	PRIMARY KEY (`filter_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Filter Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_filter_group`;
+CREATE TABLE IF NOT EXISTS `v155_filter_group` (
+	`filter_group_id` int(11) NOT NULL AUTO_INCREMENT,
+	`sort_order` int(3) NOT NULL,
+	PRIMARY KEY (`filter_group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Filter Group Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_filter_group_description`;
+CREATE TABLE IF NOT EXISTS `v155_filter_group_description` (
+	`filter_group_id` int(11) NOT NULL,
+	`language_id` int(11) NOT NULL,
+	`name` varchar(64) NOT NULL,
+	PRIMARY KEY (`filter_group_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Filter Group Description Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_information_to_layout`;
+CREATE TABLE IF NOT EXISTS `v155_information_to_layout` (
+  `information_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  `layout_id` int(11) NOT NULL,
+  PRIMARY KEY (`information_id`,`store_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Information To Layout Table Created.';
+echo '<br />';

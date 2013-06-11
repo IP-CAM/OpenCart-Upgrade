@@ -45,7 +45,7 @@ foreach($rows as $row) {
 	$q = $pdo->prepare($sql);
 	$q->execute(array(
 		':information_id' => $row['information_id'],
-		':bottom' => 1,
+		':bottom' => 0,
 		':sort_order' => $row['sort_order'],
 		':status' => $row['status'],
 	));
@@ -82,9 +82,9 @@ echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_information_to_store`;
 CREATE TABLE IF NOT EXISTS `v155_information_to_store` (
-  `information_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL,
-  PRIMARY KEY (`information_id`,`store_id`)
+	`information_id` int(11) NOT NULL,
+	`store_id` int(11) NOT NULL,
+	PRIMARY KEY (`information_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
