@@ -353,3 +353,29 @@ $pdo->query($create);
 
 echo 'Customer Transaction Table Created.';
 echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_download`;
+CREATE TABLE IF NOT EXISTS `v155_download` (
+  `download_id` int(11) NOT NULL AUTO_INCREMENT,
+  `filename` varchar(128) NOT NULL,
+  `mask` varchar(128) NOT NULL,
+  `remaining` int(11) NOT NULL DEFAULT '0',
+  `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`download_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Download Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_download_description`;
+CREATE TABLE IF NOT EXISTS `v155_download_description` (
+  `download_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`download_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Download Description Table Created.';
+echo '<br />';
