@@ -177,21 +177,6 @@ $pdo->query($create);
 echo 'Coupon Category Table Created.';
 echo '<br />';
 
-$create = "DROP TABLE IF EXISTS `v155_coupon_history`;
-CREATE TABLE IF NOT EXISTS `v155_coupon_history` (
-	`coupon_history_id` int(11) NOT NULL AUTO_INCREMENT,
-	`coupon_id` int(11) NOT NULL,
-	`order_id` int(11) NOT NULL,
-	`customer_id` int(11) NOT NULL,
-	`amount` decimal(15,4) NOT NULL,
-	`date_added` datetime NOT NULL,
-	PRIMARY KEY (`coupon_history_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
-$pdo->query($create);
-
-echo 'Coupon History Table Created.';
-echo '<br />';
-
 $create = "DROP TABLE IF EXISTS `v155_custom_field`;
 CREATE TABLE IF NOT EXISTS `v155_custom_field` (
 	`custom_field_id` int(11) NOT NULL AUTO_INCREMENT,

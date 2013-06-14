@@ -245,10 +245,3 @@ foreach($rows as $row) {
 
 echo 'Order Rows Done.';
 echo '<br />';
-
-echo '<b>TODO:</b> Double Check Currency Code and Currency Value';
-echo '<br />';
-echo '<b>TODO:</b> Fill in Customer Group ID.';
-echo '<br />';
-echo '<b>TODO:</b> Put Coupon ID and Invoice Date somewhere else';
-echo '<br />';

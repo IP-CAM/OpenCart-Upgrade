@@ -1,2 +1,8 @@
 This is the upgrade script for my brother's OpenCart installation.
 It'll probably be useless for everybody else in the world.
+
+Possible Issues:
+Payment Code and Shipping Code in the Order table are not filled in with new values.
+	(Payment Type and Shipping Type are intact)
+Invoice Date in the Order table is thrown away.
+	(Added Date and Modified Date are intact)

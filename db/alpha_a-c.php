@@ -224,6 +224,41 @@ foreach($rows as $row) {
 echo 'Coupon Rows Done.';
 echo '<br />';
 
+$create = "DROP TABLE IF EXISTS `v155_coupon_history`;
+CREATE TABLE IF NOT EXISTS `v155_coupon_history` (
+	`coupon_history_id` int(11) NOT NULL AUTO_INCREMENT,
+	`coupon_id` int(11) NOT NULL,
+	`order_id` int(11) NOT NULL,
+	`customer_id` int(11) NOT NULL,
+	`amount` decimal(15,4) NOT NULL,
+	`date_added` datetime NOT NULL,
+	PRIMARY KEY (`coupon_history_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `order` WHERE coupon_id > 0');
+foreach($rows as $row) {
+	$sql  = "SELECT value FROM order_total ";
+	$sql .= "WHERE order_id = :order_id AND value < 0";
+	$select = $pdo->prepare($sql);
+	$select->execute(array(':order_id' => $row['order_id']));
+	$value = $select->fetchColumn();
+
+	$sql  = "INSERT INTO v155_coupon_history (coupon_id,order_id,customer_id,amount,date_added)";
+	$sql .= "VALUES (:coupon_id,:order_id,:customer_id,:amount,:date_added)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':coupon_id' => $row['coupon_id'],
+		':order_id' => $row['order_id'],
+		':customer_id' => $row['customer_id'],
+		':amount' => $value,
+		':date_added' => $row['date_added'],
+	));
+}
+
+echo 'Coupon History Rows Created Guys.';
+echo '<br />';
+
 $create = "DROP TABLE IF EXISTS `v155_coupon_product`;
 CREATE TABLE IF NOT EXISTS `v155_coupon_product` (
 	`coupon_product_id` int(11) NOT NULL AUTO_INCREMENT,
