@@ -17,42 +17,6 @@ require_once './db/alpha_n-r.php';
 
 require_once './db/emptyTables.php';
 
-$create = "DROP TABLE IF EXISTS `v155_order_total`;
-CREATE TABLE IF NOT EXISTS `v155_order_total` (
-	`order_total_id` int(10) NOT NULL AUTO_INCREMENT,
-	`order_id` int(11) NOT NULL,
-	`code` varchar(32) NOT NULL,
-	`title` varchar(255) NOT NULL,
-	`text` varchar(255) NOT NULL,
-	`value` decimal(15,4) NOT NULL DEFAULT '0.0000',
-	`sort_order` int(3) NOT NULL,
-	PRIMARY KEY (`order_total_id`),
-	KEY `idx_orders_total_orders_id` (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
-$pdo->query($create);
-
-$rows = $pdo->query('SELECT * FROM `order_total`');
-foreach($rows as $row) {
-	$sql  = "INSERT INTO v155_order_total (order_total_id,order_id,code,title,text,value,sort_order)";
-	$sql .= "VALUES (:order_total_id,:order_id,:code,:title,:text,:value,:sort_order)";
-	$q = $pdo->prepare($sql);
-	$q->execute(array(
-		':order_total_id' => $row['order_total_id'],
-		':order_id' => $row['order_id'],
-		':code' => '',
-		':title' => $row['title'],
-		':text' => $row['text'],
-		':value' => $row['value'],
-		':sort_order' => $row['sort_order'],
-	));
-}
-
-echo 'Order Total Rows Done.';
-echo '<br />';
-
-echo '<b>TODO:</b> Fill in Code.';
-echo '<br />';
-
 $create = "DROP TABLE IF EXISTS `v155_product`;
 CREATE TABLE IF NOT EXISTS `v155_product` (
 	`product_id` int(11) NOT NULL AUTO_INCREMENT,
