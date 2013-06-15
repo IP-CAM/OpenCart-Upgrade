@@ -245,3 +245,140 @@ foreach($rows as $row) {
 
 echo 'Order Rows Done.';
 echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_order_history`;
+CREATE TABLE IF NOT EXISTS `v155_order_history` (
+	`order_history_id` int(11) NOT NULL AUTO_INCREMENT,
+	`order_id` int(11) NOT NULL,
+	`order_status_id` int(5) NOT NULL,
+	`notify` tinyint(1) NOT NULL DEFAULT '0',
+	`comment` text NOT NULL,
+	`date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+	PRIMARY KEY (`order_history_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `order_history`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_order_history (order_history_id,order_id,order_status_id,notify,comment,date_added)";
+	$sql .= "VALUES (:order_history_id,:order_id,:order_status_id,:notify,:comment,:date_added)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':order_history_id' => $row['order_history_id'],
+		':order_id' => $row['order_id'],
+		':order_status_id' => $row['order_status_id'],
+		':notify' => $row['notify'],
+		':comment' => $row['comment'],
+		':date_added' => $row['date_added'],
+	));
+}
+
+echo 'Order History Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_order_option`;
+CREATE TABLE IF NOT EXISTS `v155_order_option` (
+  `order_option_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `order_product_id` int(11) NOT NULL,
+  `product_option_id` int(11) NOT NULL,
+  `product_option_value_id` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(255) NOT NULL,
+  `value` text NOT NULL,
+  `type` varchar(32) NOT NULL,
+  PRIMARY KEY (`order_option_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `order_option`');
+foreach($rows as $row) {
+	$sql  = "SELECT product_option_id FROM product_option_value ";
+	$sql .= "WHERE product_option_value_id = :product_option_value_id";
+	$select = $pdo->prepare($sql);
+	$select->execute(array(':product_option_value_id' => $row['product_option_value_id']));
+	$value = $select->fetchColumn();
+
+	$sql  = "INSERT INTO v155_order_option (order_option_id,order_id,order_product_id,product_option_id,product_option_value_id,name,value,type)";
+	$sql .= "VALUES (:order_option_id,:order_id,:order_product_id,:product_option_id,:product_option_value_id,:name,:value,:type)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':order_option_id' => $row['order_option_id'],
+		':order_id' => $row['order_id'],
+		':order_product_id' => $row['order_product_id'],
+		':product_option_id' => $value,
+		':product_option_value_id' => $row['product_option_value_id'],
+		':name' => $row['name'],
+		':value' => $row['value'],
+		':type' => 'select',
+	));
+}
+
+echo 'Order Option Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_order_product`;
+CREATE TABLE IF NOT EXISTS `v155_order_product` (
+  `order_product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `model` varchar(64) NOT NULL,
+  `quantity` int(4) NOT NULL,
+  `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
+  `total` decimal(15,4) NOT NULL DEFAULT '0.0000',
+  `tax` decimal(15,4) NOT NULL DEFAULT '0.0000',
+  `reward` int(8) NOT NULL,
+  PRIMARY KEY (`order_product_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `order_product`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_order_product (order_product_id,order_id,product_id,name,model,quantity,price,total,tax,reward)";
+	$sql .= "VALUES (:order_product_id,:order_id,:product_id,:name,:model,:quantity,:price,:total,:tax,:reward)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':order_product_id' => $row['order_product_id'],
+		':order_id' => $row['order_id'],
+		':product_id' => $row['product_id'],
+		':name' => $row['name'],
+		':model' => $row['model'],
+		':quantity' => $row['quantity'],
+		':price' => $row['price'],
+		':total' => $row['total'],
+		':tax' => $row['tax'],
+		':reward' => 0,
+	));
+}
+
+echo 'Order Product Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_order_status`;
+CREATE TABLE IF NOT EXISTS `v155_order_status` (
+	`order_status_id` int(11) NOT NULL AUTO_INCREMENT,
+	`language_id` int(11) NOT NULL,
+	`name` varchar(32) NOT NULL,
+	PRIMARY KEY (`order_status_id`,`language_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$insert = "INSERT INTO `v155_order_status` (`order_status_id`, `language_id`, `name`) VALUES
+	(1, 1, 'Pending'),
+	(2, 1, 'Processing'),
+	(3, 1, 'Shipped'),
+	(5, 1, 'Complete'),
+	(7, 1, 'Canceled'),
+	(8, 1, 'Denied'),
+	(9, 1, 'Canceled Reversal'),
+	(10, 1, 'Failed'),
+	(11, 1, 'Refunded'),
+	(12, 1, 'Reversed'),
+	(13, 1, 'Chargeback'),
+	(14, 1, 'Expired'),
+	(15, 1, 'Processed'),
+	(16, 1, 'Voided');";
+$pdo->query($insert);
+
+echo 'Order Status Rows Done.';
+echo '<br />';
