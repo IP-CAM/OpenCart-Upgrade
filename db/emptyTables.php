@@ -502,3 +502,39 @@ $pdo->query($create);
 
 echo 'Product Filter Table Created.';
 echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_product_reward`;
+CREATE TABLE IF NOT EXISTS `v155_product_reward` (
+  `product_reward_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL DEFAULT '0',
+  `customer_group_id` int(11) NOT NULL DEFAULT '0',
+  `points` int(8) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`product_reward_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Product Reward Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_product_to_download';
+CREATE TABLE IF NOT EXISTS `v155_product_to_download` (
+  `product_id` int(11) NOT NULL,
+  `download_id` int(11) NOT NULL,
+  PRIMARY KEY (`product_id`,`download_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Product To Download Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_product_to_layout';
+CREATE TABLE IF NOT EXISTS `v155_product_to_layout` (
+  `product_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  `layout_id` int(11) NOT NULL,
+  PRIMARY KEY (`product_id`,`store_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Product To Layout Table Created.';
+echo '<br />';
