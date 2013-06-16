@@ -58,53 +58,6 @@ $pdo->query($create);
 echo 'Affiliate Transaction Table Created.';
 echo '<br />';
 
-$create = "DROP TABLE IF EXISTS `v155_attribute`;
-CREATE TABLE IF NOT EXISTS `v155_attribute` (
-	`attribute_id` int(11) NOT NULL AUTO_INCREMENT,
-	`attribute_group_id` int(11) NOT NULL,
-	`sort_order` int(3) NOT NULL,
-	PRIMARY KEY (`attribute_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
-$pdo->query($create);
-
-echo 'Attribute Table Created.';
-echo '<br />';
-
-$create = "DROP TABLE IF EXISTS `v155_attribute_description`;
-CREATE TABLE IF NOT EXISTS `v155_attribute_description` (
-	`attribute_id` int(11) NOT NULL,
-	`language_id` int(11) NOT NULL,
-	`name` varchar(64) NOT NULL,
-	PRIMARY KEY (`attribute_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
-$pdo->query($create);
-
-echo 'Attribute Description Table Created.';
-echo '<br />';
-
-$create = "DROP TABLE IF EXISTS `v155_attribute_group`;
-CREATE TABLE IF NOT EXISTS `v155_attribute_group` (
-	`attribute_group_id` int(11) NOT NULL AUTO_INCREMENT,
-	`sort_order` int(3) NOT NULL,
-	PRIMARY KEY (`attribute_group_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
-$pdo->query($create);
-
-echo 'Attribute Group Table Created.';
-echo '<br />';
-
-$create = "DROP TABLE IF EXISTS `v155_attribute_group_description`;
-CREATE TABLE IF NOT EXISTS `v155_attribute_group_description` (
-	`attribute_group_id` int(11) NOT NULL,
-	`language_id` int(11) NOT NULL,
-	`name` varchar(64) NOT NULL,
-	PRIMARY KEY (`attribute_group_id`,`language_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
-$pdo->query($create);
-
-echo 'Attribute Group Description Table Created.';
-echo '<br />';
-
 $create = "DROP TABLE IF EXISTS `v155_banner`;
 CREATE TABLE IF NOT EXISTS `v155_banner` (
 	`banner_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -520,22 +473,32 @@ echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_order_voucher`;
 CREATE TABLE IF NOT EXISTS `v155_order_voucher` (
-  `order_voucher_id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `voucher_id` int(11) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `code` varchar(10) NOT NULL,
-  `from_name` varchar(64) NOT NULL,
-  `from_email` varchar(96) NOT NULL,
-  `to_name` varchar(64) NOT NULL,
-  `to_email` varchar(96) NOT NULL,
-  `voucher_theme_id` int(11) NOT NULL,
-  `message` text NOT NULL,
-  `amount` decimal(15,4) NOT NULL,
-  PRIMARY KEY (`order_voucher_id`)
+	`order_voucher_id` int(11) NOT NULL AUTO_INCREMENT,
+	`order_id` int(11) NOT NULL,
+	`voucher_id` int(11) NOT NULL,
+	`description` varchar(255) NOT NULL,
+	`code` varchar(10) NOT NULL,
+	`from_name` varchar(64) NOT NULL,
+	`from_email` varchar(96) NOT NULL,
+	`to_name` varchar(64) NOT NULL,
+	`to_email` varchar(96) NOT NULL,
+	`voucher_theme_id` int(11) NOT NULL,
+	`message` text NOT NULL,
+	`amount` decimal(15,4) NOT NULL,
+	PRIMARY KEY (`order_voucher_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
 echo 'Order Voucher Table Created.';
 echo '<br />';
 
+$create = "DROP TABLE IF EXISTS `v155_product_filter`;
+CREATE TABLE IF NOT EXISTS `v155_product_filter` (
+  `product_id` int(11) NOT NULL,
+  `filter_id` int(11) NOT NULL,
+  PRIMARY KEY (`product_id`,`filter_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Product Filter Table Created.';
+echo '<br />';

@@ -42,6 +42,73 @@ foreach($rows as $row) {
 echo 'Address Rows Done.';
 echo '<br />';
 
+$create = "DROP TABLE IF EXISTS `v155_attribute_group`;
+CREATE TABLE IF NOT EXISTS `v155_attribute_group` (
+	`attribute_group_id` int(11) NOT NULL AUTO_INCREMENT,
+	`sort_order` int(3) NOT NULL,
+	PRIMARY KEY (`attribute_group_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$insert  = "INSERT INTO v155_attribute_group (attribute_group_id,sort_order)";
+$insert .= "VALUES (1,0)";
+$pdo->query($insert);
+
+echo 'Attribute Group Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_attribute_group_description`;
+CREATE TABLE IF NOT EXISTS `v155_attribute_group_description` (
+	`attribute_group_id` int(11) NOT NULL,
+	`language_id` int(11) NOT NULL,
+	`name` varchar(64) NOT NULL,
+	PRIMARY KEY (`attribute_group_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$insert  = "INSERT INTO v155_attribute_group_description (attribute_group_id,language_id,name)";
+$insert .= "VALUES (1,1,'General')";
+$pdo->query($insert);
+
+echo 'Attribute Group Description Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_attribute`;
+CREATE TABLE IF NOT EXISTS `v155_attribute` (
+	`attribute_id` int(11) NOT NULL AUTO_INCREMENT,
+	`attribute_group_id` int(11) NOT NULL,
+	`sort_order` int(3) NOT NULL,
+	PRIMARY KEY (`attribute_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$insert = "INSERT INTO `v155_attribute` (`attribute_id`, `attribute_group_id`, `sort_order`) VALUES
+	(1, 1, 0),
+	(2, 1, 0),
+	(3, 1, 0);";
+$pdo->query($insert);
+
+echo 'Attribute Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_attribute_description`;
+CREATE TABLE IF NOT EXISTS `v155_attribute_description` (
+	`attribute_id` int(11) NOT NULL,
+	`language_id` int(11) NOT NULL,
+	`name` varchar(64) NOT NULL,
+	PRIMARY KEY (`attribute_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$insert = "INSERT INTO `v155_attribute_description` (`attribute_id`, `language_id`, `name`) VALUES
+	(1, 1, 'size'),
+	(2, 1, 'color'),
+	(3, 1, 'condition');";
+$pdo->query($insert);
+
+echo 'Attribute Description Rows Done.';
+echo '<br />';
+
 $create = "DROP TABLE IF EXISTS `v155_category`;
 CREATE TABLE IF NOT EXISTS `v155_category` (
 	`category_id` int(11) NOT NULL AUTO_INCREMENT,
