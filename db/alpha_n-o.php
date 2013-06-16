@@ -1,5 +1,12 @@
 <?php
 
+$options = array();
+$rows = $pdo->query('SELECT DISTINCT LOWER(name) AS name FROM `product_option_description`');
+foreach($rows as $row) {
+	$name = $row['name'];
+	$options[] = array('lower' => $name, 'name' => ucwords($name));
+}
+
 $create = "DROP TABLE IF EXISTS `v155_option`;
 CREATE TABLE IF NOT EXISTS `v155_option` (
 	`option_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -9,19 +16,16 @@ CREATE TABLE IF NOT EXISTS `v155_option` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
-$insert = "INSERT INTO `v155_option` (`option_id`, `type`, `sort_order`) VALUES
-	(1, 'radio', 2),
-	(2, 'checkbox', 3),
-	(4, 'text', 4),
-	(5, 'select', 1),
-	(6, 'textarea', 5),
-	(7, 'file', 6),
-	(8, 'date', 7),
-	(9, 'time', 8),
-	(10, 'datetime', 9),
-	(11, 'select', 1),
-	(12, 'date', 1);";
-$pdo->query($insert);
+foreach($options as $index => $option) {
+	$sql  = "INSERT INTO v155_option (option_id,type,sort_order)";
+	$sql .= "VALUES (:option_id,:type,:sort_order)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':option_id' => $index + 1,
+		':type' => 'select',
+		':sort_order' => 0,
+	));
+}
 
 echo 'Option Rows Done.';
 echo '<br />';
@@ -35,22 +39,29 @@ CREATE TABLE IF NOT EXISTS `v155_option_description` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
-$insert = "INSERT INTO `v155_option_description` (`option_id`, `language_id`, `name`) VALUES
-	(1, 1, 'Radio'),
-	(2, 1, 'Checkbox'),
-	(4, 1, 'Text'),
-	(6, 1, 'Textarea'),
-	(8, 1, 'Date'),
-	(7, 1, 'File'),
-	(5, 1, 'Select'),
-	(9, 1, 'Time'),
-	(10, 1, 'Date &amp; Time'),
-	(12, 1, 'Delivery Date'),
-	(11, 1, 'Size');";
-$pdo->query($insert);
+foreach($options as $index => $option) {
+	$sql  = "INSERT INTO v155_option_description (option_id,language_id,name)";
+	$sql .= "VALUES (:option_id,:language_id,:name)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':option_id' => $index + 1,
+		':language_id' => 1,
+		':name' => $option['name'],
+	));
+}
 
 echo 'Option Description Rows Done.';
 echo '<br />';
+
+$sql = 'SELECT DISTINCT
+	LOWER(product_option_value_description.name) AS value,
+	LOWER(product_option_description.name) AS name,
+	MIN(product_option_value.sort_order) AS sort
+	FROM product_option_value_description
+	JOIN product_option_value ON product_option_value_description.product_option_value_id=product_option_value.product_option_value_id
+	JOIN product_option_description ON product_option_value.product_option_id=product_option_description.product_option_id
+	GROUP BY value,name;';
+$rows = $pdo->query($sql);
 
 $create = "DROP TABLE IF EXISTS `v155_option_value`;
 CREATE TABLE IF NOT EXISTS `v155_option_value` (
@@ -62,26 +73,6 @@ CREATE TABLE IF NOT EXISTS `v155_option_value` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
-$insert = "INSERT INTO `v155_option_value` (`option_value_id`, `option_id`, `image`, `sort_order`) VALUES
-	(43, 1, '', 3),
-	(32, 1, '', 1),
-	(45, 2, '', 4),
-	(44, 2, '', 3),
-	(42, 5, '', 4),
-	(41, 5, '', 3),
-	(39, 5, '', 1),
-	(40, 5, '', 2),
-	(31, 1, '', 2),
-	(23, 2, '', 1),
-	(24, 2, '', 2),
-	(46, 11, '', 1),
-	(47, 11, '', 2),
-	(48, 11, '', 3);";
-$pdo->query($insert);
-
-echo 'Option Value Rows Done.';
-echo '<br />';
-
 $create = "DROP TABLE IF EXISTS `v155_option_value_description`;
 CREATE TABLE IF NOT EXISTS `v155_option_value_description` (
 	`option_value_id` int(11) NOT NULL,
@@ -92,22 +83,38 @@ CREATE TABLE IF NOT EXISTS `v155_option_value_description` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
-$insert = "INSERT INTO `v155_option_value_description` (`option_value_id`, `language_id`, `option_id`, `name`) VALUES
-	(43, 1, 1, 'Large'),
-	(32, 1, 1, 'Small'),
-	(45, 1, 2, 'Checkbox 4'),
-	(44, 1, 2, 'Checkbox 3'),
-	(31, 1, 1, 'Medium'),
-	(42, 1, 5, 'Yellow'),
-	(41, 1, 5, 'Green'),
-	(39, 1, 5, 'Red'),
-	(40, 1, 5, 'Blue'),
-	(23, 1, 2, 'Checkbox 1'),
-	(24, 1, 2, 'Checkbox 2'),
-	(48, 1, 11, 'Large'),
-	(47, 1, 11, 'Medium'),
-	(46, 1, 11, 'Small');";
-$pdo->query($insert);
+foreach($rows as $index => $row) {
+	$key = 0;
+	foreach($options as $i => $option) {
+		if ($option['lower'] == $row['name']) {
+			$key = $i;
+			break;
+		}
+	}
+
+	$sql  = "INSERT INTO v155_option_value (option_id,image,sort_order)";
+	$sql .= "VALUES (:option_id,:image,:sort_order)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':option_id' => $key + 1,
+		':image' => '',
+		':sort_order' => $row['sort'],
+	));
+	$id = $pdo->lastInsertId();
+
+	$sql  = "INSERT INTO v155_option_value_description (option_value_id,language_id,option_id,name)";
+	$sql .= "VALUES (:option_value_id,:language_id,:option_id,:name)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':option_value_id' => $id,
+		':language_id' => 1,
+		':option_id' => $key + 1,
+		':name' => ucwords($row['value']),
+	));
+}
+
+echo 'Option Value Rows Done.';
+echo '<br />';
 
 echo 'Option Value Description Rows Done.';
 echo '<br />';
