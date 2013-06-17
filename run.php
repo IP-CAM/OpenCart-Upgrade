@@ -20,9 +20,6 @@ require_once './db/alpha_t-z.php';
 require_once './db/custom.php';
 require_once './db/emptyTables.php';
 
-echo '<b>TODO</b> I think this should always be shipping based.';
-echo '<br />';
-
 $create = "DROP TABLE IF EXISTS `v155_url_alias`;
 CREATE TABLE IF NOT EXISTS `v155_url_alias` (
 	`url_alias_id` int(11) NOT NULL AUTO_INCREMENT,
