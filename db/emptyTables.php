@@ -516,7 +516,7 @@ $pdo->query($create);
 echo 'Product Reward Table Created.';
 echo '<br />';
 
-$create = "DROP TABLE IF EXISTS `v155_product_to_download';
+$create = "DROP TABLE IF EXISTS `v155_product_to_download`;
 CREATE TABLE IF NOT EXISTS `v155_product_to_download` (
 	`product_id` int(11) NOT NULL,
 	`download_id` int(11) NOT NULL,
@@ -527,7 +527,7 @@ $pdo->query($create);
 echo 'Product To Download Table Created.';
 echo '<br />';
 
-$create = "DROP TABLE IF EXISTS `v155_product_to_layout';
+$create = "DROP TABLE IF EXISTS `v155_product_to_layout`;
 CREATE TABLE IF NOT EXISTS `v155_product_to_layout` (
 	`product_id` int(11) NOT NULL,
 	`store_id` int(11) NOT NULL,
