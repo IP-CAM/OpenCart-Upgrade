@@ -482,3 +482,135 @@ $pdo->query($insert);
 
 echo 'Return Status Rows Done.';
 echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_review`;
+CREATE TABLE IF NOT EXISTS `v155_review` (
+	`review_id` int(11) NOT NULL AUTO_INCREMENT,
+	`product_id` int(11) NOT NULL,
+	`customer_id` int(11) NOT NULL,
+	`author` varchar(64) NOT NULL,
+	`text` text NOT NULL,
+	`rating` int(1) NOT NULL,
+	`status` tinyint(1) NOT NULL DEFAULT '0',
+	`date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+	PRIMARY KEY (`review_id`),
+	KEY `product_id` (`product_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `review`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_review (review_id,product_id,customer_id,author,text,rating,status,date_added,date_modified)";
+	$sql .= "VALUES (:review_id,:product_id,:customer_id,:author,:text,:rating,:status,:date_added,:date_modified)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':review_id' => $row['review_id'],
+		':product_id' => $row['product_id'],
+		':customer_id' => $row['customer_id'],
+		':author' => $row['author'],
+		':text' => $row['text'],
+		':rating' => $row['rating'],
+		':status' => $row['status'],
+		':date_added' => $row['date_added'],
+		':date_modified' => $row['date_modified'],
+	));
+}
+
+echo 'Review Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_setting`;
+CREATE TABLE IF NOT EXISTS `v155_setting` (
+	`setting_id` int(11) NOT NULL AUTO_INCREMENT,
+	`store_id` int(11) NOT NULL DEFAULT '0',
+	`group` varchar(32) NOT NULL,
+	`key` varchar(64) NOT NULL,
+	`value` text NOT NULL,
+	`serialized` tinyint(1) NOT NULL,
+	PRIMARY KEY (`setting_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `setting`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_setting (setting_id,store_id,`group`,`key`,value,serialized)";
+	$sql .= "VALUES (:setting_id,:store_id,:group,:key,:value,:serialized)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':setting_id' => $row['setting_id'],
+		':store_id' => 0,
+		':group' => $row['group'],
+		':key' => $row['key'],
+		':value' => $row['value'],
+		':serialized' => 0,
+	));
+}
+
+$rows = $pdo->query('SELECT * FROM store WHERE store_id = 2');
+foreach($rows as $row) {
+	$skip = array('store_id');
+	foreach($row as $key => $value) {
+		if ($key == 'store_id') continue;
+		if (is_int($key)) continue;
+
+		$sql  = "INSERT INTO v155_setting (store_id,`group`,`key`,value,serialized)";
+		$sql .= "VALUES (:store_id,:group,:key,:value,:serialized)";
+		$q = $pdo->prepare($sql);
+		$q->execute(array(
+			':store_id' => 2,
+			':group' => 'config',
+			':key' => 'config_' . $key,
+			':value' => $value,
+			':serialized' => 0,
+		));
+	}
+}
+
+echo 'Setting Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_stock_status`;
+CREATE TABLE IF NOT EXISTS `v155_stock_status` (
+	`stock_status_id` int(11) NOT NULL AUTO_INCREMENT,
+	`language_id` int(11) NOT NULL,
+	`name` varchar(32) NOT NULL,
+	PRIMARY KEY (`stock_status_id`,`language_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$insert = "INSERT INTO `v155_stock_status` (`stock_status_id`, `language_id`, `name`) VALUES
+	(7, 1, 'In Stock'),
+	(5, 1, 'Out Of Stock'),
+	(6, 1, '2 - 3 Days'),
+	(9, 1, 'Orderable');";
+$pdo->query($insert);
+
+echo 'Stock Status Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_store`;
+CREATE TABLE IF NOT EXISTS `v155_store` (
+	`store_id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(64) NOT NULL,
+	`url` varchar(255) NOT NULL,
+	`ssl` varchar(255) NOT NULL,
+	PRIMARY KEY (`store_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `store`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_store (store_id,name,url,`ssl`)";
+	$sql .= "VALUES (:store_id,:name,:url,:ssl)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':store_id' => $row['store_id'],
+		':name' => $row['name'],
+		':url' => $row['url'],
+		':ssl' => $row['ssl'],
+	));
+}
+
+echo 'Store Rows Done.';
+echo '<br />';
