@@ -426,3 +426,59 @@ foreach($rows as $row) {
 
 echo 'Product To Store Rows Done.';
 echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_return_action`;
+CREATE TABLE IF NOT EXISTS `v155_return_action` (
+	`return_action_id` int(11) NOT NULL AUTO_INCREMENT,
+	`language_id` int(11) NOT NULL DEFAULT '0',
+	`name` varchar(64) NOT NULL,
+	PRIMARY KEY (`return_action_id`,`language_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$insert = "INSERT INTO `v155_return_action` (`return_action_id`, `language_id`, `name`) VALUES
+	(1, 1, 'Refunded'),
+	(2, 1, 'Credit Issued'),
+	(3, 1, 'Replacement Sent');";
+$pdo->query($insert);
+
+echo 'Return Action Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_return_reason`;
+CREATE TABLE IF NOT EXISTS `v155_return_reason` (
+	`return_reason_id` int(11) NOT NULL AUTO_INCREMENT,
+	`language_id` int(11) NOT NULL DEFAULT '0',
+	`name` varchar(128) NOT NULL,
+	PRIMARY KEY (`return_reason_id`,`language_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$insert = "INSERT INTO `v155_return_reason` (`return_reason_id`, `language_id`, `name`) VALUES
+	(1, 1, 'Dead On Arrival'),
+	(2, 1, 'Received Wrong Item'),
+	(3, 1, 'Order Error'),
+	(4, 1, 'Faulty, please supply details'),
+	(5, 1, 'Other, please supply details');";
+$pdo->query($insert);
+
+echo 'Return Reason Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_return_status`;
+CREATE TABLE IF NOT EXISTS `v155_return_status` (
+	`return_status_id` int(11) NOT NULL AUTO_INCREMENT,
+	`language_id` int(11) NOT NULL DEFAULT '0',
+	`name` varchar(32) NOT NULL,
+	PRIMARY KEY (`return_status_id`,`language_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$insert = "INSERT INTO `v155_return_status` (`return_status_id`, `language_id`, `name`) VALUES
+	(1, 1, 'Pending'),
+	(3, 1, 'Complete'),
+	(2, 1, 'Awaiting Products');";
+$pdo->query($insert);
+
+echo 'Return Status Rows Done.';
+echo '<br />';

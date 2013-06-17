@@ -85,11 +85,11 @@ echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_banner_image_description`;
 CREATE TABLE IF NOT EXISTS `v155_banner_image_description` (
-  `banner_image_id` int(11) NOT NULL,
-  `language_id` int(11) NOT NULL,
-  `banner_id` int(11) NOT NULL,
-  `title` varchar(64) NOT NULL,
-  PRIMARY KEY (`banner_image_id`,`language_id`)
+	`banner_image_id` int(11) NOT NULL,
+	`language_id` int(11) NOT NULL,
+	`banner_id` int(11) NOT NULL,
+	`title` varchar(64) NOT NULL,
+	PRIMARY KEY (`banner_image_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
@@ -98,9 +98,9 @@ echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_category_filter`;
 CREATE TABLE IF NOT EXISTS `v155_category_filter` (
-  `category_id` int(11) NOT NULL,
-  `filter_id` int(11) NOT NULL,
-  PRIMARY KEY (`category_id`,`filter_id`)
+	`category_id` int(11) NOT NULL,
+	`filter_id` int(11) NOT NULL,
+	PRIMARY KEY (`category_id`,`filter_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
@@ -109,10 +109,10 @@ echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_category_to_layout`;
 CREATE TABLE IF NOT EXISTS `v155_category_to_layout` (
-  `category_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL,
-  `layout_id` int(11) NOT NULL,
-  PRIMARY KEY (`category_id`,`store_id`)
+	`category_id` int(11) NOT NULL,
+	`store_id` int(11) NOT NULL,
+	`layout_id` int(11) NOT NULL,
+	PRIMARY KEY (`category_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
@@ -294,12 +294,12 @@ echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_download`;
 CREATE TABLE IF NOT EXISTS `v155_download` (
-  `download_id` int(11) NOT NULL AUTO_INCREMENT,
-  `filename` varchar(128) NOT NULL,
-  `mask` varchar(128) NOT NULL,
-  `remaining` int(11) NOT NULL DEFAULT '0',
-  `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`download_id`)
+	`download_id` int(11) NOT NULL AUTO_INCREMENT,
+	`filename` varchar(128) NOT NULL,
+	`mask` varchar(128) NOT NULL,
+	`remaining` int(11) NOT NULL DEFAULT '0',
+	`date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+	PRIMARY KEY (`download_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
@@ -308,10 +308,10 @@ echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_download_description`;
 CREATE TABLE IF NOT EXISTS `v155_download_description` (
-  `download_id` int(11) NOT NULL,
-  `language_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
-  PRIMARY KEY (`download_id`,`language_id`)
+	`download_id` int(11) NOT NULL,
+	`language_id` int(11) NOT NULL,
+	`name` varchar(64) NOT NULL,
+	PRIMARY KEY (`download_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
@@ -368,10 +368,10 @@ echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_information_to_layout`;
 CREATE TABLE IF NOT EXISTS `v155_information_to_layout` (
-  `information_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL,
-  `layout_id` int(11) NOT NULL,
-  PRIMARY KEY (`information_id`,`store_id`)
+	`information_id` int(11) NOT NULL,
+	`store_id` int(11) NOT NULL,
+	`layout_id` int(11) NOT NULL,
+	PRIMARY KEY (`information_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
@@ -380,14 +380,14 @@ echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_order_download`;
 CREATE TABLE IF NOT EXISTS `v155_order_download` (
-  `order_download_id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `order_product_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
-  `filename` varchar(128) NOT NULL,
-  `mask` varchar(128) NOT NULL,
-  `remaining` int(3) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`order_download_id`)
+	`order_download_id` int(11) NOT NULL AUTO_INCREMENT,
+	`order_id` int(11) NOT NULL,
+	`order_product_id` int(11) NOT NULL,
+	`name` varchar(64) NOT NULL,
+	`filename` varchar(128) NOT NULL,
+	`mask` varchar(128) NOT NULL,
+	`remaining` int(3) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`order_download_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
@@ -396,13 +396,13 @@ echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_order_field`;
 CREATE TABLE IF NOT EXISTS `v155_order_field` (
-  `order_id` int(11) NOT NULL,
-  `custom_field_id` int(11) NOT NULL,
-  `custom_field_value_id` int(11) NOT NULL,
-  `name` int(128) NOT NULL,
-  `value` text NOT NULL,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`order_id`,`custom_field_id`,`custom_field_value_id`)
+	`order_id` int(11) NOT NULL,
+	`custom_field_id` int(11) NOT NULL,
+	`custom_field_value_id` int(11) NOT NULL,
+	`name` int(128) NOT NULL,
+	`value` text NOT NULL,
+	`sort_order` int(3) NOT NULL,
+	PRIMARY KEY (`order_id`,`custom_field_id`,`custom_field_value_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
@@ -411,60 +411,60 @@ echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_order_fraud`;
 CREATE TABLE IF NOT EXISTS `v155_order_fraud` (
-  `order_id` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL,
-  `country_match` varchar(3) NOT NULL,
-  `country_code` varchar(2) NOT NULL,
-  `high_risk_country` varchar(3) NOT NULL,
-  `distance` int(11) NOT NULL,
-  `ip_region` varchar(255) NOT NULL,
-  `ip_city` varchar(255) NOT NULL,
-  `ip_latitude` decimal(10,6) NOT NULL,
-  `ip_longitude` decimal(10,6) NOT NULL,
-  `ip_isp` varchar(255) NOT NULL,
-  `ip_org` varchar(255) NOT NULL,
-  `ip_asnum` int(11) NOT NULL,
-  `ip_user_type` varchar(255) NOT NULL,
-  `ip_country_confidence` varchar(3) NOT NULL,
-  `ip_region_confidence` varchar(3) NOT NULL,
-  `ip_city_confidence` varchar(3) NOT NULL,
-  `ip_postal_confidence` varchar(3) NOT NULL,
-  `ip_postal_code` varchar(10) NOT NULL,
-  `ip_accuracy_radius` int(11) NOT NULL,
-  `ip_net_speed_cell` varchar(255) NOT NULL,
-  `ip_metro_code` int(3) NOT NULL,
-  `ip_area_code` int(3) NOT NULL,
-  `ip_time_zone` varchar(255) NOT NULL,
-  `ip_region_name` varchar(255) NOT NULL,
-  `ip_domain` varchar(255) NOT NULL,
-  `ip_country_name` varchar(255) NOT NULL,
-  `ip_continent_code` varchar(2) NOT NULL,
-  `ip_corporate_proxy` varchar(3) NOT NULL,
-  `anonymous_proxy` varchar(3) NOT NULL,
-  `proxy_score` int(3) NOT NULL,
-  `is_trans_proxy` varchar(3) NOT NULL,
-  `free_mail` varchar(3) NOT NULL,
-  `carder_email` varchar(3) NOT NULL,
-  `high_risk_username` varchar(3) NOT NULL,
-  `high_risk_password` varchar(3) NOT NULL,
-  `bin_match` varchar(10) NOT NULL,
-  `bin_country` varchar(2) NOT NULL,
-  `bin_name_match` varchar(3) NOT NULL,
-  `bin_name` varchar(255) NOT NULL,
-  `bin_phone_match` varchar(3) NOT NULL,
-  `bin_phone` varchar(32) NOT NULL,
-  `customer_phone_in_billing_location` varchar(8) NOT NULL,
-  `ship_forward` varchar(3) NOT NULL,
-  `city_postal_match` varchar(3) NOT NULL,
-  `ship_city_postal_match` varchar(3) NOT NULL,
-  `score` decimal(10,5) NOT NULL,
-  `explanation` text NOT NULL,
-  `risk_score` decimal(10,5) NOT NULL,
-  `queries_remaining` int(11) NOT NULL,
-  `maxmind_id` varchar(8) NOT NULL,
-  `error` text NOT NULL,
-  `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`order_id`)
+	`order_id` int(11) NOT NULL,
+	`customer_id` int(11) NOT NULL,
+	`country_match` varchar(3) NOT NULL,
+	`country_code` varchar(2) NOT NULL,
+	`high_risk_country` varchar(3) NOT NULL,
+	`distance` int(11) NOT NULL,
+	`ip_region` varchar(255) NOT NULL,
+	`ip_city` varchar(255) NOT NULL,
+	`ip_latitude` decimal(10,6) NOT NULL,
+	`ip_longitude` decimal(10,6) NOT NULL,
+	`ip_isp` varchar(255) NOT NULL,
+	`ip_org` varchar(255) NOT NULL,
+	`ip_asnum` int(11) NOT NULL,
+	`ip_user_type` varchar(255) NOT NULL,
+	`ip_country_confidence` varchar(3) NOT NULL,
+	`ip_region_confidence` varchar(3) NOT NULL,
+	`ip_city_confidence` varchar(3) NOT NULL,
+	`ip_postal_confidence` varchar(3) NOT NULL,
+	`ip_postal_code` varchar(10) NOT NULL,
+	`ip_accuracy_radius` int(11) NOT NULL,
+	`ip_net_speed_cell` varchar(255) NOT NULL,
+	`ip_metro_code` int(3) NOT NULL,
+	`ip_area_code` int(3) NOT NULL,
+	`ip_time_zone` varchar(255) NOT NULL,
+	`ip_region_name` varchar(255) NOT NULL,
+	`ip_domain` varchar(255) NOT NULL,
+	`ip_country_name` varchar(255) NOT NULL,
+	`ip_continent_code` varchar(2) NOT NULL,
+	`ip_corporate_proxy` varchar(3) NOT NULL,
+	`anonymous_proxy` varchar(3) NOT NULL,
+	`proxy_score` int(3) NOT NULL,
+	`is_trans_proxy` varchar(3) NOT NULL,
+	`free_mail` varchar(3) NOT NULL,
+	`carder_email` varchar(3) NOT NULL,
+	`high_risk_username` varchar(3) NOT NULL,
+	`high_risk_password` varchar(3) NOT NULL,
+	`bin_match` varchar(10) NOT NULL,
+	`bin_country` varchar(2) NOT NULL,
+	`bin_name_match` varchar(3) NOT NULL,
+	`bin_name` varchar(255) NOT NULL,
+	`bin_phone_match` varchar(3) NOT NULL,
+	`bin_phone` varchar(32) NOT NULL,
+	`customer_phone_in_billing_location` varchar(8) NOT NULL,
+	`ship_forward` varchar(3) NOT NULL,
+	`city_postal_match` varchar(3) NOT NULL,
+	`ship_city_postal_match` varchar(3) NOT NULL,
+	`score` decimal(10,5) NOT NULL,
+	`explanation` text NOT NULL,
+	`risk_score` decimal(10,5) NOT NULL,
+	`queries_remaining` int(11) NOT NULL,
+	`maxmind_id` varchar(8) NOT NULL,
+	`error` text NOT NULL,
+	`date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+	PRIMARY KEY (`order_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
@@ -494,9 +494,9 @@ echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_product_filter`;
 CREATE TABLE IF NOT EXISTS `v155_product_filter` (
-  `product_id` int(11) NOT NULL,
-  `filter_id` int(11) NOT NULL,
-  PRIMARY KEY (`product_id`,`filter_id`)
+	`product_id` int(11) NOT NULL,
+	`filter_id` int(11) NOT NULL,
+	PRIMARY KEY (`product_id`,`filter_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
@@ -505,11 +505,11 @@ echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_product_reward`;
 CREATE TABLE IF NOT EXISTS `v155_product_reward` (
-  `product_reward_id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL DEFAULT '0',
-  `customer_group_id` int(11) NOT NULL DEFAULT '0',
-  `points` int(8) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`product_reward_id`)
+	`product_reward_id` int(11) NOT NULL AUTO_INCREMENT,
+	`product_id` int(11) NOT NULL DEFAULT '0',
+	`customer_group_id` int(11) NOT NULL DEFAULT '0',
+	`points` int(8) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`product_reward_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
@@ -518,9 +518,9 @@ echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_product_to_download';
 CREATE TABLE IF NOT EXISTS `v155_product_to_download` (
-  `product_id` int(11) NOT NULL,
-  `download_id` int(11) NOT NULL,
-  PRIMARY KEY (`product_id`,`download_id`)
+	`product_id` int(11) NOT NULL,
+	`download_id` int(11) NOT NULL,
+	PRIMARY KEY (`product_id`,`download_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
@@ -529,12 +529,55 @@ echo '<br />';
 
 $create = "DROP TABLE IF EXISTS `v155_product_to_layout';
 CREATE TABLE IF NOT EXISTS `v155_product_to_layout` (
-  `product_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL,
-  `layout_id` int(11) NOT NULL,
-  PRIMARY KEY (`product_id`,`store_id`)
+	`product_id` int(11) NOT NULL,
+	`store_id` int(11) NOT NULL,
+	`layout_id` int(11) NOT NULL,
+	PRIMARY KEY (`product_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
 echo 'Product To Layout Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_return`;
+CREATE TABLE IF NOT EXISTS `v155_return` (
+	`return_id` int(11) NOT NULL AUTO_INCREMENT,
+	`order_id` int(11) NOT NULL,
+	`product_id` int(11) NOT NULL,
+	`customer_id` int(11) NOT NULL,
+	`firstname` varchar(32) NOT NULL,
+	`lastname` varchar(32) NOT NULL,
+	`email` varchar(96) NOT NULL,
+	`telephone` varchar(32) NOT NULL,
+	`product` varchar(255) NOT NULL,
+	`model` varchar(64) NOT NULL,
+	`quantity` int(4) NOT NULL,
+	`opened` tinyint(1) NOT NULL,
+	`return_reason_id` int(11) NOT NULL,
+	`return_action_id` int(11) NOT NULL,
+	`return_status_id` int(11) NOT NULL,
+	`comment` text,
+	`date_ordered` date NOT NULL,
+	`date_added` datetime NOT NULL,
+	`date_modified` datetime NOT NULL,
+	PRIMARY KEY (`return_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Return Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_`;
+CREATE TABLE IF NOT EXISTS `return_history` (
+	`return_history_id` int(11) NOT NULL AUTO_INCREMENT,
+	`return_id` int(11) NOT NULL,
+	`return_status_id` int(11) NOT NULL,
+	`notify` tinyint(1) NOT NULL,
+	`comment` text NOT NULL,
+	`date_added` datetime NOT NULL,
+	PRIMARY KEY (`return_history_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Return History Table Created.';
 echo '<br />';
