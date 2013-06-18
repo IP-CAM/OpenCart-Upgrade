@@ -567,8 +567,8 @@ $pdo->query($create);
 echo 'Return Table Created.';
 echo '<br />';
 
-$create = "DROP TABLE IF EXISTS `v155_`;
-CREATE TABLE IF NOT EXISTS `return_history` (
+$create = "DROP TABLE IF EXISTS `v155_return_history`;
+CREATE TABLE IF NOT EXISTS `v155_return_history` (
 	`return_history_id` int(11) NOT NULL AUTO_INCREMENT,
 	`return_id` int(11) NOT NULL,
 	`return_status_id` int(11) NOT NULL,
@@ -580,4 +580,62 @@ CREATE TABLE IF NOT EXISTS `return_history` (
 $pdo->query($create);
 
 echo 'Return History Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_voucher`;
+CREATE TABLE IF NOT EXISTS `v155_voucher` (
+	`voucher_id` int(11) NOT NULL AUTO_INCREMENT,
+	`order_id` int(11) NOT NULL,
+	`code` varchar(10) NOT NULL,
+	`from_name` varchar(64) NOT NULL,
+	`from_email` varchar(96) NOT NULL,
+	`to_name` varchar(64) NOT NULL,
+	`to_email` varchar(96) NOT NULL,
+	`voucher_theme_id` int(11) NOT NULL,
+	`message` text NOT NULL,
+	`amount` decimal(15,4) NOT NULL,
+	`status` tinyint(1) NOT NULL,
+	`date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+	PRIMARY KEY (`voucher_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Voucher Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_voucher_history`;
+CREATE TABLE IF NOT EXISTS `v155_voucher_history` (
+	`voucher_history_id` int(11) NOT NULL AUTO_INCREMENT,
+	`voucher_id` int(11) NOT NULL,
+	`order_id` int(11) NOT NULL,
+	`amount` decimal(15,4) NOT NULL,
+	`date_added` datetime NOT NULL,
+	PRIMARY KEY (`voucher_history_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Voucher History Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_voucher_theme`;
+CREATE TABLE IF NOT EXISTS `v155_voucher_theme` (
+  `voucher_theme_id` int(11) NOT NULL AUTO_INCREMENT,
+  `image` varchar(255) NOT NULL,
+  PRIMARY KEY (`voucher_theme_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Voucher Theme Table Created.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_voucher_theme_description`;
+CREATE TABLE IF NOT EXISTS `v155_voucher_theme_description` (
+  `voucher_theme_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`voucher_theme_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+echo 'Voucher Theme Discription Table Created.';
 echo '<br />';

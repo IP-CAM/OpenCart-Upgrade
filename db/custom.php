@@ -56,3 +56,25 @@ foreach ($data as $data) {
 
 echo 'Custom Product Data Rows Done.';
 echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_compulsion_vendor`;
+CREATE TABLE IF NOT EXISTS `v155_compulsion_vendor` (
+	`vendor_id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(64) NOT NULL,
+	PRIMARY KEY (`vendor_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$rows = $pdo->query('SELECT * FROM `vendor`');
+foreach($rows as $row) {
+	$sql  = "INSERT INTO v155_compulsion_vendor (vendor_id,name)";
+	$sql .= "VALUES (:vendor_id,:name)";
+	$q = $pdo->prepare($sql);
+	$q->execute(array(
+		':vendor_id' => $row['vendor_id'],
+		':name' => $row['name'],
+	));
+}
+
+echo 'Custom Vendor Rows Done.';
+echo '<br />';
