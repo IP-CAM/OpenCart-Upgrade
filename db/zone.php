@@ -4006,6 +4006,3 @@ $pdo->query($insert);
 
 echo 'Zone Rows Done.';
 echo '<br />';
-
-echo '<b>TODO:</b> Make sure no new zones were added.';
-echo '<br />';
