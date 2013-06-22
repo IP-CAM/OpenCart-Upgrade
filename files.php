@@ -49,6 +49,9 @@ fclose($write);
 unlink ('../config.php');
 rename ('../config-new.php', '../config.php');
 
+rename ('../index.php', '../archive-index.php');
+rename ('../upload/index.php', '../index.php');
+
 chmod('../download', 0777);
 chmod('../image', 0777);
 chmod('../image/cache', 0777);

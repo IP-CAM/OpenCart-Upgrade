@@ -6,3 +6,6 @@ Put this upgrade folder in your OpenCart install.
 
 Step 2.
 Copy 'upload' to folder into your OpenCart install.
+
+Step 3.
+Run 'php run.php' from the command line.
