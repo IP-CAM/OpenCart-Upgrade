@@ -139,6 +139,57 @@ foreach($rows as $row) {
 echo 'Language Rows Done.';
 echo '<br />';
 
+$create = "DROP TABLE IF EXISTS `v155_layout`;
+CREATE TABLE `v155_layout` (
+	`layout_id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(64) NOT NULL,
+	PRIMARY KEY (`layout_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$insert = "INSERT INTO `v155_layout` (`layout_id`, `name`) VALUES
+	(1, 'Home'),
+	(2, 'Product'),
+	(3, 'Category'),
+	(4, 'Default'),
+	(5, 'Manufacturer'),
+	(6, 'Account'),
+	(7, 'Checkout'),
+	(8, 'Contact'),
+	(9, 'Sitemap'),
+	(10, 'Affiliate'),
+	(11, 'Information');";
+$pdo->query($insert);
+
+echo 'Layout Rows Done.';
+echo '<br />';
+
+$create = "DROP TABLE IF EXISTS `v155_layout_route`;
+CREATE TABLE `v155_layout_route` (
+	`layout_route_id` int(11) NOT NULL AUTO_INCREMENT,
+	`layout_id` int(11) NOT NULL,
+	`store_id` int(11) NOT NULL,
+	`route` varchar(255) NOT NULL,
+	PRIMARY KEY (`layout_route_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+$pdo->query($create);
+
+$insert = "INSERT INTO `v155_layout_route` (`layout_id`, `store_id`, `route`) VALUES
+	(6, 0, 'account'),
+	(10, 0, 'affiliate/'),
+	(3, 0, 'product/category'),
+	(1, 0, 'common/home'),
+	(2, 0, 'product/product'),
+	(11, 0, 'information/information'),
+	(5, 0, 'product/manufacturer'),
+	(7, 0, 'checkout/'),
+	(8, 0, 'information/contact'),
+	(9, 0, 'information/sitemap');";
+$pdo->query($insert);
+
+echo 'Layout Route Rows Done.';
+echo '<br />';
+
 $create = "DROP TABLE IF EXISTS `v155_length_class`;
 CREATE TABLE IF NOT EXISTS `v155_length_class` (
 	`length_class_id` int(11) NOT NULL AUTO_INCREMENT,

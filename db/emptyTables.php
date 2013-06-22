@@ -378,19 +378,6 @@ $pdo->query($create);
 echo 'Information To Layout Table Created.';
 echo '<br />';
 
-$create = "DROP TABLE IF EXISTS `v155_layout_route`;
-CREATE TABLE `v155_layout_route` (
-	`layout_route_id` int(11) NOT NULL AUTO_INCREMENT,
-	`layout_id` int(11) NOT NULL,
-	`store_id` int(11) NOT NULL,
-	`route` varchar(255) NOT NULL,
-	PRIMARY KEY (`layout_route_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
-$pdo->query($create);
-
-echo 'Layout Route Table Created.';
-echo '<br />';
-
 $create = "DROP TABLE IF EXISTS `v155_order_download`;
 CREATE TABLE IF NOT EXISTS `v155_order_download` (
 	`order_download_id` int(11) NOT NULL AUTO_INCREMENT,
