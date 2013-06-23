@@ -567,8 +567,12 @@ foreach($rows as $row) {
 	}
 }
 
-echo 'Setting Rows Done.';
-echo '<br />';
+echo 'Setting Rows Done.\n';
+
+$delete = "DELETE FROM `v155_setting` WHERE `key` = 'config_logo'";
+$pdo->query($delete);
+
+echo 'Setting Rows Cleaned.\n';
 
 $create = "DROP TABLE IF EXISTS `v155_stock_status`;
 CREATE TABLE IF NOT EXISTS `v155_stock_status` (

@@ -39,8 +39,8 @@ foreach($rows as $row) {
 		':zone_id' => $row['zone_id'],
 	));
 }
-echo 'Address Rows Done.';
-echo '<br />';
+
+echo "Address Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_attribute_group`;
 CREATE TABLE IF NOT EXISTS `v155_attribute_group` (
@@ -54,8 +54,7 @@ $insert  = "INSERT INTO v155_attribute_group (attribute_group_id,sort_order)";
 $insert .= "VALUES (1,0)";
 $pdo->query($insert);
 
-echo 'Attribute Group Rows Done.';
-echo '<br />';
+echo "Attribute Group Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_attribute_group_description`;
 CREATE TABLE IF NOT EXISTS `v155_attribute_group_description` (
@@ -70,8 +69,7 @@ $insert  = "INSERT INTO v155_attribute_group_description (attribute_group_id,lan
 $insert .= "VALUES (1,1,'General')";
 $pdo->query($insert);
 
-echo 'Attribute Group Description Rows Done.';
-echo '<br />';
+echo "Attribute Group Description Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_attribute`;
 CREATE TABLE IF NOT EXISTS `v155_attribute` (
@@ -88,8 +86,7 @@ $insert = "INSERT INTO `v155_attribute` (`attribute_id`, `attribute_group_id`, `
 	(3, 1, 0);";
 $pdo->query($insert);
 
-echo 'Attribute Rows Done.';
-echo '<br />';
+echo "Attribute Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_attribute_description`;
 CREATE TABLE IF NOT EXISTS `v155_attribute_description` (
@@ -106,8 +103,7 @@ $insert = "INSERT INTO `v155_attribute_description` (`attribute_id`, `language_i
 	(3, 1, 'condition');";
 $pdo->query($insert);
 
-echo 'Attribute Description Rows Done.';
-echo '<br />';
+echo "Attribute Description Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_category`;
 CREATE TABLE IF NOT EXISTS `v155_category` (
@@ -133,7 +129,7 @@ foreach($rows as $row) {
 		':category_id' => $row['category_id'],
 		':image' => $row['image'],
 		':parent_id' => $row['parent_id'],
-		':top' => 0,
+		':top' => $row['parent_id'] == '0' ? 1 : 0,
 		':column' => 0,
 		':sort_order' => $row['sort_order'],
 		':status' => $row['status'],
@@ -141,8 +137,8 @@ foreach($rows as $row) {
 		':date_modified' => $row['date_modified'],
 	));
 }
-echo 'Category Rows Done.';
-echo '<br />';
+
+echo "Category Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_category_description`;
 CREATE TABLE IF NOT EXISTS `v155_category_description` (
@@ -171,8 +167,8 @@ foreach($rows as $row) {
 		':meta_keyword' => $row['meta_keywords'],
 	));
 }
-echo 'Category Description Rows Done.';
-echo '<br />';
+
+echo "Category Description Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_category_path`;
 CREATE TABLE IF NOT EXISTS `v155_category_path` (
@@ -210,8 +206,7 @@ function insertCategoryPath($parent, $paths) {
 
 insertCategoryPath(0, array());
 
-echo 'Category Path Rows Done.';
-echo '<br />';
+echo "Category Path Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_category_to_store`;
 CREATE TABLE IF NOT EXISTS `v155_category_to_store` (
@@ -231,8 +226,8 @@ foreach($rows as $row) {
 		':store_id' => $row['store_id'],
 	));
 }
-echo 'Category To Store Rows Done.';
-echo '<br />';
+
+echo "Category To Store Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_coupon`;
 CREATE TABLE IF NOT EXISTS `v155_coupon` (
@@ -288,8 +283,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Coupon Rows Done.';
-echo '<br />';
+echo "Coupon Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_coupon_history`;
 CREATE TABLE IF NOT EXISTS `v155_coupon_history` (
@@ -323,8 +317,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Coupon History Rows Created Guys.';
-echo '<br />';
+echo "Coupon History Rows Created.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_coupon_product`;
 CREATE TABLE IF NOT EXISTS `v155_coupon_product` (
@@ -346,8 +339,8 @@ foreach($rows as $row) {
 		':product_id' => $row['product_id'],
 	));
 }
-echo 'Coupon Product Rows Done.';
-echo '<br />';
+
+echo "Coupon Product Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_currency`;
 CREATE TABLE IF NOT EXISTS `v155_currency` (
@@ -377,8 +370,8 @@ $q->execute(array(
 	':value' => '1.00000000',
 	':status' => 1,
 ));
-echo 'Currency Rows Done.';
-echo '<br />';
+
+echo "Currency Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_customer`;
 CREATE TABLE IF NOT EXISTS `v155_customer` (
@@ -433,8 +426,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Customer Rows Done.';
-echo '<br />';
+echo "Customer Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_customer_group`;
 CREATE TABLE IF NOT EXISTS `v155_customer_group` (
@@ -465,8 +457,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Customer Group Rows Done.';
-echo '<br />';
+echo "Customer Group Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_customer_group_description`;
 CREATE TABLE IF NOT EXISTS `v155_customer_group_description` (
@@ -491,5 +482,4 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Customer Group Discription Rows Done.';
-echo '<br />';
+echo "Customer Group Discription Rows Done.\n";
