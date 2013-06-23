@@ -39,7 +39,7 @@ while (!feof($read)){
 	fwrite($write, $line);
 	if (strpos($line, 'php')) {
 		foreach ($servers as $server) {
-			fwrite($write, $server);
+			fwrite($write, str_replace('/admin/', '/', $server));
 		}
 	}
 }
