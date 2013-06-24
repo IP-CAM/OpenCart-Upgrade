@@ -45,7 +45,7 @@ foreach($rows as $row) {
 	$q = $pdo->prepare($sql);
 	$q->execute(array(
 		':information_id' => $row['information_id'],
-		':bottom' => 0,
+		':bottom' => 1,
 		':sort_order' => $row['sort_order'],
 		':status' => $row['status'],
 	));
