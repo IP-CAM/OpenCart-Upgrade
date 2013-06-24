@@ -129,7 +129,7 @@ foreach($rows as $row) {
 		':category_id' => $row['category_id'],
 		':image' => $row['image'],
 		':parent_id' => $row['parent_id'],
-		':top' => $row['parent_id'] == '0' ? 1 : 0,
+		':top' => 0,
 		':column' => 0,
 		':sort_order' => $row['sort_order'],
 		':status' => $row['status'],
@@ -139,6 +139,11 @@ foreach($rows as $row) {
 }
 
 echo "Category Rows Done.\n";
+
+$sql = "UPDATE v155_category SET top = 1 WHERE category_id IN (39, 43, 44, 45, 46, 53, 89, 109)";
+$pdo->query($sql);
+
+echo "Category Top Rows Updated.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_category_description`;
 CREATE TABLE IF NOT EXISTS `v155_category_description` (
