@@ -77,8 +77,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Product Rows Done.';
-echo '<br />';
+echo "Product Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_product_attribute`;
 CREATE TABLE IF NOT EXISTS `v155_product_attribute` (
@@ -127,8 +126,7 @@ foreach ($data as $data) {
 	));
 }
 
-echo 'Product Attribute Rows Done.';
-echo '<br />';
+echo "Product Attribute Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_product_description`;
 CREATE TABLE IF NOT EXISTS `v155_product_description` (
@@ -160,8 +158,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Product Description Rows Done.';
-echo '<br />';
+echo "Product Description Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_product_discount`;
 CREATE TABLE IF NOT EXISTS `v155_product_discount` (
@@ -195,8 +192,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Product Discount Rows Done.';
-echo '<br />';
+echo "Product Discount Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_product_image`;
 CREATE TABLE IF NOT EXISTS `v155_product_image` (
@@ -221,8 +217,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Product Image Rows Done.';
-echo '<br />';
+echo "Product Image Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_product_option`;
 CREATE TABLE IF NOT EXISTS `v155_product_option` (
@@ -257,8 +252,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Product Option Rows Done.';
-echo '<br />';
+echo "Product Option Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_product_option_value`;
 CREATE TABLE IF NOT EXISTS `v155_product_option_value` (
@@ -325,8 +319,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Product Option Value Rows Done.';
-echo '<br />';
+echo "Product Option Value Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_product_related`;
 CREATE TABLE IF NOT EXISTS `v155_product_related` (
@@ -347,8 +340,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Product Related Rows Done.';
-echo '<br />';
+echo "Product Related Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_product_special`;
 CREATE TABLE IF NOT EXISTS `v155_product_special` (
@@ -380,8 +372,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Product Special Rows Done.';
-echo '<br />';
+echo "Product Special Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_product_to_category`;
 CREATE TABLE IF NOT EXISTS `v155_product_to_category` (
@@ -402,8 +393,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Product To Categories Rows Done.';
-echo '<br />';
+echo "Product To Categories Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_product_to_store`;
 CREATE TABLE IF NOT EXISTS `v155_product_to_store` (
@@ -424,8 +414,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Product To Store Rows Done.';
-echo '<br />';
+echo "Product To Store Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_return_action`;
 CREATE TABLE IF NOT EXISTS `v155_return_action` (
@@ -442,8 +431,7 @@ $insert = "INSERT INTO `v155_return_action` (`return_action_id`, `language_id`, 
 	(3, 1, 'Replacement Sent');";
 $pdo->query($insert);
 
-echo 'Return Action Rows Done.';
-echo '<br />';
+echo "Return Action Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_return_reason`;
 CREATE TABLE IF NOT EXISTS `v155_return_reason` (
@@ -462,8 +450,7 @@ $insert = "INSERT INTO `v155_return_reason` (`return_reason_id`, `language_id`, 
 	(5, 1, 'Other, please supply details');";
 $pdo->query($insert);
 
-echo 'Return Reason Rows Done.';
-echo '<br />';
+echo "Return Reason Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_return_status`;
 CREATE TABLE IF NOT EXISTS `v155_return_status` (
@@ -480,8 +467,7 @@ $insert = "INSERT INTO `v155_return_status` (`return_status_id`, `language_id`, 
 	(2, 1, 'Awaiting Products');";
 $pdo->query($insert);
 
-echo 'Return Status Rows Done.';
-echo '<br />';
+echo "Return Status Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_review`;
 CREATE TABLE IF NOT EXISTS `v155_review` (
@@ -517,8 +503,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Review Rows Done.';
-echo '<br />';
+echo "Review Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_setting`;
 CREATE TABLE IF NOT EXISTS `v155_setting` (
@@ -567,12 +552,30 @@ foreach($rows as $row) {
 	}
 }
 
-echo 'Setting Rows Done.\n';
+echo "Setting Rows Done.\n";
 
 $delete = "DELETE FROM `v155_setting` WHERE `key` = 'config_logo'";
 $pdo->query($delete);
 
-echo 'Setting Rows Cleaned.\n';
+echo "Setting Rows Cleaned.\n";
+
+$insert = "INSERT INTO `v155_setting` (store_id,`group`,`key`,value,serialized) VALUES
+	(0, 'category', 'category_module', 'a:1:{i:0;a:4:{s:9:\"layout_id\";s:1:\"1\";s:8:\"position\";s:11:\"column_left\";s:6:\"status\";s:1:\"1\";s:10:\"sort_order\";s:0:\"\";}}', 1)";
+$pdo->query($insert);
+
+$insert = "INSERT INTO `v155_setting` (store_id,`group`,`key`,value,serialized) VALUES
+	(0, 'welcome', 'welcome_module', 'a:1:{i:1;a:5:{s:11:\"description\";a:1:{i:1;s:447:\"&lt;p style=&quot;font-family: Arial, Helvetica, sans-serif; margin-top: 0px; color: rgb(34, 34, 34); line-height: normal; text-align: center; &quot;&gt;Welcome to Compulsion Cycles.&lt;br /&gt;\r\nLet me know what you think.&lt;br /&gt;\r\njoe@compulsioncycles.com&lt;/p&gt;\r\n\r\n&lt;p style=&quot;font-family: Arial, Helvetica, sans-serif; margin-top: 0px; color: rgb(34, 34, 34); line-height: normal; text-align: center; &quot;&gt;Thanks.&lt;/p&gt;\r\n\";}s:9:\"layout_id\";s:1:\"6\";s:8:\"position\";s:11:\"content_top\";s:6:\"status\";s:1:\"1\";s:10:\"sort_order\";s:0:\"\";}}', 1)";
+$pdo->query($insert);
+
+$insert = "INSERT INTO `v155_setting` (store_id,`group`,`key`,value,serialized) VALUES
+	(0, 'latest', 'latest_module', 'a:1:{i:0;a:7:{s:5:\"limit\";s:1:\"8\";s:11:\"image_width\";s:2:\"80\";s:12:\"image_height\";s:2:\"80\";s:9:\"layout_id\";s:1:\"1\";s:8:\"position\";s:11:\"content_top\";s:6:\"status\";s:1:\"1\";s:10:\"sort_order\";s:1:\"2\";}}', 1)";
+$pdo->query($insert);
+
+$insert = "INSERT INTO `v155_setting` (store_id,`group`,`key`,value,serialized) VALUES
+	(0, 'bestsetter', 'bestseller_module', 'a:1:{i:0;a:7:{s:5:\"limit\";s:1:\"5\";s:11:\"image_width\";s:2:\"80\";s:12:\"image_height\";s:2:\"80\";s:9:\"layout_id\";s:1:\"1\";s:8:\"position\";s:12:\"column_right\";s:6:\"status\";s:1:\"1\";s:10:\"sort_order\";s:0:\"\";}}', 1)";
+$pdo->query($insert);
+
+echo "Settings For Homepage Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_stock_status`;
 CREATE TABLE IF NOT EXISTS `v155_stock_status` (
@@ -590,8 +593,7 @@ $insert = "INSERT INTO `v155_stock_status` (`stock_status_id`, `language_id`, `n
 	(9, 1, 'Orderable');";
 $pdo->query($insert);
 
-echo 'Stock Status Done.';
-echo '<br />';
+echo "Stock Status Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_store`;
 CREATE TABLE IF NOT EXISTS `v155_store` (
@@ -616,5 +618,4 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Store Rows Done.';
-echo '<br />';
+echo "Store Rows Done.\n";

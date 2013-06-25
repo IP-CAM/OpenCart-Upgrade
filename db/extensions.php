@@ -21,5 +21,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'Extension Rows Copied.';
-echo '<br />';
+$insert = "INSERT INTO `v155_extension` (type,code) VALUES ('module', 'welcome')";
+$pdo->query($insert);
+
+echo "Extension Rows Copied.\n";
