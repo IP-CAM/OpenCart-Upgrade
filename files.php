@@ -1,5 +1,12 @@
 <?php
 
+// Copied from PHPdoc
+function rrmdir($dir) {
+	foreach(glob($dir . '/*') as $file) {
+		if(is_dir($file)) rrmdir($file); else unlink($file);
+	} rmdir($dir);
+}
+
 rename ('../admin', '../archive-admin');
 rename ('../catalog', '../archive-catalog');
 rename ('../system', '../archive-system');
@@ -54,6 +61,8 @@ rename ('../upload/index.php', '../index.php');
 
 chmod('../download', 0777);
 chmod('../image', 0777);
-chmod('../image/cache', 0777);
+rrmdir('../image/cache');
+rrmdir('../system/cache');
+mkdir('../system/cache');
 chmod('../system/cache', 0777);
 chmod('../system/logs', 0777);
