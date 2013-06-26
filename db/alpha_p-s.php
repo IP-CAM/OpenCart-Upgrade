@@ -564,7 +564,7 @@ $insert = "INSERT INTO `v155_setting` (store_id,`group`,`key`,value,serialized) 
 $pdo->query($insert);
 
 $insert = "INSERT INTO `v155_setting` (store_id,`group`,`key`,value,serialized) VALUES
-	(0, 'welcome', 'welcome_module', 'a:1:{i:1;a:5:{s:11:\"description\";a:1:{i:1;s:447:\"&lt;p style=&quot;font-family: Arial, Helvetica, sans-serif; margin-top: 0px; color: rgb(34, 34, 34); line-height: normal; text-align: center; &quot;&gt;Welcome to Compulsion Cycles.&lt;br /&gt;\r\nLet me know what you think.&lt;br /&gt;\r\njoe@compulsioncycles.com&lt;/p&gt;\r\n\r\n&lt;p style=&quot;font-family: Arial, Helvetica, sans-serif; margin-top: 0px; color: rgb(34, 34, 34); line-height: normal; text-align: center; &quot;&gt;Thanks.&lt;/p&gt;\r\n\";}s:9:\"layout_id\";s:1:\"6\";s:8:\"position\";s:11:\"content_top\";s:6:\"status\";s:1:\"1\";s:10:\"sort_order\";s:0:\"\";}}', 1)";
+	(0, 'welcome', 'welcome_module', 'a:1:{i:1;a:5:{s:11:\"description\";a:1:{i:1;s:447:\"&lt;p style=&quot;font-family: Arial, Helvetica, sans-serif; margin-top: 0px; color: rgb(34, 34, 34); line-height: normal; text-align: center; &quot;&gt;Welcome to Compulsion Cycles.&lt;br /&gt;\r\nLet me know what you think.&lt;br /&gt;\r\njoe@compulsioncycles.com&lt;/p&gt;\r\n\r\n&lt;p style=&quot;font-family: Arial, Helvetica, sans-serif; margin-top: 0px; color: rgb(34, 34, 34); line-height: normal; text-align: center; &quot;&gt;Thanks.&lt;/p&gt;\r\n\";}s:9:\"layout_id\";s:1:\"1\";s:8:\"position\";s:11:\"content_top\";s:6:\"status\";s:1:\"1\";s:10:\"sort_order\";s:1:\"1\";}}', 1)";
 $pdo->query($insert);
 
 $insert = "INSERT INTO `v155_setting` (store_id,`group`,`key`,value,serialized) VALUES

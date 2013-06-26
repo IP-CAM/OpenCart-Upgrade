@@ -21,6 +21,9 @@ foreach($rows as $row) {
 	));
 }
 
+$delete = "DELETE FROM `v155_extension` WHERE code IN ('manufacturer', 'cart', 'google_analytics')";
+$pdo->query($delete);
+
 $insert = "INSERT INTO `v155_extension` (type,code) VALUES ('module', 'welcome')";
 $pdo->query($insert);
 
