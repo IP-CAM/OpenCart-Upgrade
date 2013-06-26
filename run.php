@@ -10,7 +10,7 @@ if (!file_exists('../upload/config-dist.php')) {
 
 require_once '../config.php';
 require_once 'db.php';
-
+require_once 'logo.php';
 require_once 'files.php';
 
 echo '<b>TODO:</b> Move Category Images Around.';

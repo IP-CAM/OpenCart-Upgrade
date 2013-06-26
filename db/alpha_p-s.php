@@ -554,11 +554,6 @@ foreach($rows as $row) {
 
 echo "Setting Rows Done.\n";
 
-$delete = "DELETE FROM `v155_setting` WHERE `key` = 'config_logo'";
-$pdo->query($delete);
-
-echo "Setting Rows Cleaned.\n";
-
 $insert = "INSERT INTO `v155_setting` (store_id,`group`,`key`,value,serialized) VALUES
 	(0, 'category', 'category_module', 'a:1:{i:0;a:4:{s:9:\"layout_id\";s:1:\"1\";s:8:\"position\";s:11:\"column_left\";s:6:\"status\";s:1:\"1\";s:10:\"sort_order\";s:0:\"\";}}', 1)";
 $pdo->query($insert);
