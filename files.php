@@ -1,10 +1,28 @@
 <?php
 
-// Copied from PHPdoc
+// Functions Copied from PHPdoc
 function rrmdir($dir) {
-	foreach(glob($dir . '/*') as $file) {
-		if(is_dir($file)) rrmdir($file); else unlink($file);
+	foreach (glob($dir . '/*') as $file) {
+		if (is_dir($file))
+			rrmdir($file);
+		else
+			unlink($file);
 	} rmdir($dir);
+}
+
+function recurse_copy($src, $dst) {
+	$dir = opendir($src);
+	@mkdir($dst);
+	while (false !== ( $file = readdir($dir))) {
+		if (( $file != '.' ) && ( $file != '..' )) {
+			if (is_dir($src . '/' . $file)) {
+				recurse_copy($src . '/' . $file, $dst . '/' . $file);
+			} else {
+				copy($src . '/' . $file, $dst . '/' . $file);
+			}
+		}
+	}
+	closedir($dir);
 }
 
 rename ('../admin', '../archive-admin');
@@ -57,7 +75,8 @@ unlink ('../config.php');
 rename ('../config-new.php', '../config.php');
 
 rename ('../index.php', '../archive-index.php');
-rename ('../upload/index.php', '../index.php');
+rename ('../admin/index.php', '../archive-admin-index.php');
+
 
 chmod('../download', 0777);
 chmod('../image', 0777);
@@ -66,3 +85,12 @@ rrmdir('../system/cache');
 mkdir('../system/cache');
 chmod('../system/cache', 0777);
 chmod('../system/logs', 0777);
+
+rrmdir('../vqmod');
+recurse_copy('vqmod', '../vqmod');
+copy('vqmod/install/home-index.php', '../index.php');
+copy('vqmod/install/admin-index.php', '../admin/index.php');
+rrmdir('vqmod/install');
+
+chmod('../vqmod', 0777);
+chmod('../vqmod/vqcache', 0777);
