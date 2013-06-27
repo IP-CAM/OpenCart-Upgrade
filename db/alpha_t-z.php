@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `v155_weight_class` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;";
 $pdo->query($create);
 
-$insert = "INSERT INTO `weight_class` (`weight_class_id`, `value`) VALUES
+$insert = "INSERT INTO `v155_weight_class` (`weight_class_id`, `value`) VALUES
 	(1, 1.00000000),
 	(2, 1000.00000000),
 	(5, 2.20460000),
