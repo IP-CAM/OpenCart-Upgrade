@@ -188,7 +188,7 @@ $insert = "INSERT INTO `v155_weight_class` (`weight_class_id`, `value`) VALUES
 	(2, 1000.00000000),
 	(5, 2.20460000),
 	(6, 35.27400000);";
-$pdo->query($create);
+$pdo->query($insert);
 
 echo "Weight Class Rows Done.\n";
 
