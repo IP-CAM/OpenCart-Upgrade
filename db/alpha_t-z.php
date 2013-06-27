@@ -142,8 +142,7 @@ foreach($rows as $row) {
 	));
 }
 
-echo 'User Rows Done.';
-echo '<br />';
+echo "User Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_user_group`;
 CREATE TABLE IF NOT EXISTS `v155_user_group` (
@@ -174,8 +173,7 @@ $q->execute(array(
 	':permission' => $permission,
 ));
 
-echo 'User Group Rows Done.';
-echo '<br />';
+echo "User Group Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_weight_class`;
 CREATE TABLE IF NOT EXISTS `v155_weight_class` (
@@ -190,9 +188,9 @@ $insert = "INSERT INTO `v155_weight_class` (`weight_class_id`, `value`) VALUES
 	(2, 1000.00000000),
 	(5, 2.20460000),
 	(6, 35.27400000);";
+$pdo->query($create);
 
-echo 'Weight Class Rows Done.';
-echo '<br />';
+echo "Weight Class Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_weight_class_description`;
 CREATE TABLE IF NOT EXISTS `v155_weight_class_description` (
@@ -211,8 +209,7 @@ $insert = "INSERT INTO `v155_weight_class_description` (`weight_class_id`, `lang
 	(6, 1, 'Ounce', 'oz');";
 $pdo->query($insert);
 
-echo 'Weight Class Description Rows Done.';
-echo '<br />';
+echo "Weight Class Description Rows Done.\n";
 
 $create = "DROP TABLE IF EXISTS `v155_zone_to_geo_zone`;
 CREATE TABLE IF NOT EXISTS `v155_zone_to_geo_zone` (
@@ -231,5 +228,4 @@ $insert = "INSERT INTO `v155_zone_to_geo_zone` (`zone_to_geo_zone_id`, `country_
 	(63, 38, 0, 8, '2012-01-27 06:02:57', '0000-00-00 00:00:00');";
 $pdo->query($insert);
 
-echo 'Zone To Geo Zone Rows Done.';
-echo '<br />';
+echo "Zone To Geo Zone Rows Done.\n";
