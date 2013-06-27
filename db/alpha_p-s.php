@@ -572,6 +572,16 @@ $pdo->query($insert);
 
 echo "Settings For Homepage Done.\n";
 
+$delete = "DELETE FROM `v155_setting` WHERE `key` = 'config_weight_class_id'";
+$pdo->query($insert);
+
+$insert = "INSERT INTO `v155_setting` (store_id,`group`,`key`,value,serialized) VALUES
+	(0, 'config', 'config_weight_class_id', 5, 0),
+	(2, 'config', 'config_weight_class_id', 5, 0)";
+$pdo->query($insert);
+
+echo "Settings For Weight Done.\n";
+
 $create = "DROP TABLE IF EXISTS `v155_stock_status`;
 CREATE TABLE IF NOT EXISTS `v155_stock_status` (
 	`stock_status_id` int(11) NOT NULL AUTO_INCREMENT,
