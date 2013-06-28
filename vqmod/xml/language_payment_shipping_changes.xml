@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modification>
 	<id>Customization to Payment and Shipping Language</id>
-	<version>1.0.2a</version>
+	<version>1.0.2</version>
 	<vqmver>2.3.2</vqmver>
 	<author>jimlind</author>
 
@@ -125,7 +125,7 @@
         		$_['text_title']           = 'Credit or Debit Card (Processed securely by PayPal)';
         	]]></search>
             <add trim="true"><![CDATA[
-				$_['text_title'] = 'Credit Card';
+				$_['text_title']           = 'Credit Card';
           	]]></add>
         </operation>
 	</file>
@@ -206,7 +206,7 @@
         </operation>
         <operation error="abort">
         	<search position="replace"><![CDATA[
-				$_['text_ip_region_confidence']               = 'IP State Confidence:<br /><span class="help">Representing our confidence that the State is correct.</span>';
+				$_['text_ip_region_confidence']               = 'IP Region Confidence:<br /><span class="help">Representing our confidence that the region location is correct.</span>';
         	]]></search>
             <add trim="true"><![CDATA[
 				$_['text_ip_region_confidence']               = 'IP State Confidence:<br /><span class="help">Representing our confidence that the State is correct.</span>';
@@ -214,7 +214,7 @@
         </operation>
         <operation error="abort">
         	<search position="replace"><![CDATA[
-        		$_['text_ip_region_name']                     = 'IP State Name:<br /><span class="help">Estimated State name of the IP address.</span>';
+        		$_['text_ip_region_name']                     = 'IP Region Name:<br /><span class="help">Estimated Region name of the IP address.</span>';
         	]]></search>
             <add trim="true"><![CDATA[
         		$_['text_ip_region_name']                     = 'IP State Name:<br /><span class="help">Estimated State name of the IP address.</span>';
