@@ -582,6 +582,16 @@ $pdo->query($insert);
 
 echo "Settings For Weight Done.\n";
 
+$delete = "DELETE FROM `v155_setting` WHERE `key` = 'config_customer_group_display'";
+$pdo->query($insert);
+
+$insert = "INSERT INTO `v155_setting` (store_id,`group`,`key`,value,serialized) VALUES
+	(0, 'config', 'config_customer_group_display', 'a:1:{i:0;s:1:\"8\";}', 1),
+	(2, 'config', 'config_customer_group_display', 'a:1:{i:0;s:1:\"8\";}', 1)";
+$pdo->query($insert);
+
+echo "Settings For Customer Group Display Done.\n";
+
 $create = "DROP TABLE IF EXISTS `v155_stock_status`;
 CREATE TABLE IF NOT EXISTS `v155_stock_status` (
 	`stock_status_id` int(11) NOT NULL AUTO_INCREMENT,
