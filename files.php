@@ -77,6 +77,10 @@ rename ('../config-new.php', '../config.php');
 rename ('../index.php', '../archive-index.php');
 rename ('../admin/index.php', '../archive-admin-index.php');
 
+if (file_exists('../.htaccess')) {
+	unlink ('../.htaccess');
+}
+rename ('../upload/.htaccess.txt', '../.htaccess');
 
 chmod('../download', 0777);
 chmod('../image', 0777);
